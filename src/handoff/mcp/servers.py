@@ -122,6 +122,43 @@ MCP_SERVERS: dict[str, MCPServerSpec] = {
         actions=["navigate", "extract_text", "screenshot"],
         transport="builtin",
     ),
+    "notion": MCPServerSpec(
+        name="notion",
+        # Notion publishes a remote MCP server, but it is OAuth-only — a
+        # browser round-trip Handoff cannot complete inside a 6am cron run.
+        # The REST API takes one integration secret and does everything the
+        # workflows need, so Handoff calls it directly in handoff.tools.notion.
+        description="Write run records, briefs and reports into Notion",
+        actions=["create_page", "append", "search"],
+        transport="builtin",
+        required_env=["NOTION_API_KEY"],
+    ),
+    "telegram": MCPServerSpec(
+        name="telegram",
+        # The Bot API is two HTTP calls; an MCP server in front of it would be
+        # a subprocess for no gain. Tapped answers need a poll loop, which
+        # lives in handoff.tools.telegram.
+        description="Ask the human on their phone, with tappable answers",
+        actions=["send", "ask", "poll_updates"],
+        transport="builtin",
+        required_env=["TELEGRAM_BOT_TOKEN", "TELEGRAM_CHAT_ID"],
+    ),
+    "airtable": MCPServerSpec(
+        name="airtable",
+        description="Append every decision to a log table for review",
+        actions=["log_decision", "append_rows"],
+        transport="builtin",
+        required_env=["AIRTABLE_API_KEY", "AIRTABLE_BASE_ID"],
+    ),
+    "gcal": MCPServerSpec(
+        name="gcal",
+        # No env var: the OAuth token is a file, written by `handoff connect
+        # gcal`, refreshed on every call. Same shape as Gmail, deliberately.
+        description="Read the day's schedule and book time for filed work",
+        actions=["list_events", "create_event", "find_free_slot"],
+        transport="builtin",
+        require_file="~/.handoff/google-calendar.json",
+    ),
     "code_interpreter": MCPServerSpec(
         name="code_interpreter",
         description="Run Python for data processing and report generation (AgentCore Code Interpreter)",
