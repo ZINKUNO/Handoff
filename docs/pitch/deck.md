@@ -42,34 +42,22 @@ A voice-first agent on the **Strands Agents SDK** that runs your recurring chore
 
 ## Built for the Multi-App AI Agent Hackathon
 
+![bg right:34% fit](../screens/terminal/doctor.png)
+
 **Virtual · September 13, 2026** — hosted by **Lemma** and **Comma Capital**, judged by the founders of **Arga Labs** and **Userlens**.
 
-The brief: build one useful, multi-step AI agent, connect it to at least three external apps, and show how you know it works.
+The brief: one useful, multi-step agent. At least three external apps. Show how you know it works.
 
-<div class="cols">
-<div>
+- **Eight** external apps, not three
+- Reliability as a table, not a claim: 313 tests, a real call per credential, every decision logged with its confidence
 
-**The brief, met**
-- One agent, six-plus steps per run
-- **Eight** external apps, not three — Gmail, Google Calendar, Linear, Slack, GitHub, Notion, Telegram, Airtable
-- Reliability shown as a table, not a claim: 313 automated tests, `handoff doctor` making a real call per credential, every decision logged to Airtable with its confidence
-
-</div>
-<div>
-
-**Judged on**
-- Technical execution — 30%
-- Reliability & evaluation — 25%
-- Usefulness — 20%
-- Originality — 15%
-- Demo clarity — 10%
-
-</div>
-</div>
+<p class="muted">Judged on technical execution 30% · reliability & evaluation 25% · usefulness 20% · originality 15% · demo clarity 10%</p>
 
 ---
 
 ## The half hour nobody gets back
+
+![bg right:42% fit](../screens/overview.png)
 
 Every professional starts the day with the same twenty minutes of small work: triage the inbox, file the real asks, archive the noise, reply to the manager.
 
@@ -77,7 +65,7 @@ Every professional starts the day with the same twenty minutes of small work: tr
 - Every tool built to help is *another thing to open*.
 - And the one thing you actually fear from an agent: it does something you didn't sanction.
 
-<p class="muted">The brief asked for an agent that runs autonomously and only surfaces when there's a real decision to make. We built that sentence.</p>
+<p class="muted">What people actually want is narrower: an agent that runs autonomously and only surfaces when there's a real decision to make. We built that sentence.</p>
 
 ---
 
@@ -148,6 +136,8 @@ Say *"archive it, it's cold outreach."* Matched locally, no model round-trip. Th
 
 ## It gets quieter
 
+![bg right:44% fit](../screens/ui/memory.png)
+
 Your answer becomes a **narrow rule**: exact sender, whole domain, or two distinct keywords. Never one shared word.
 
 | Run | Handled alone | From your rules | Waiting on you |
@@ -159,9 +149,26 @@ Your answer becomes a **narrow rule**: exact sender, whole domain, or two distin
 
 ---
 
-<!-- _class: dark -->
+## Eight apps, one morning
+
+![bg right:46% fit](../screens/ui/credentials.png)
+
+One workflow — `morning_ops.json` — across **Gmail, Google Calendar, Linear, Notion, Airtable, Telegram**.
+
+- Reads mail **and** the calendar before deciding
+- Files the real asks, then **books time** to do them
+- Logs every decision with its confidence, **before** it asks
+- The one it can't call goes to your **phone**, as buttons
+- The run writes itself up in Notion — every credential verified by a real call
+
+---
+
+<!-- The table needs the light theme: on the dark slide its cells stay white and the text vanishes. -->
+<style scoped>table { font-size: 17px; } td, th { padding: 6px 10px; }</style>
 
 ## Built on Strands, all the way down
+
+![bg right:30% fit](../screens/terminal/strands.png)
 
 | SDK feature | Where it earns its place |
 |---|---|
@@ -177,6 +184,8 @@ Your answer becomes a **narrow rule**: exact sender, whole domain, or two distin
 <!-- _class: dark -->
 
 ## On AWS, for real
+
+![bg right:40% fit](../screens/aws/agentcore.png)
 
 - **Amazon Bedrock** — Nova Pro / Nova Lite through cross-region profiles
 - **AgentCore Runtime** — arm64 container, session per run, long-running invocations
@@ -215,6 +224,8 @@ $ handoff talk --mic
 ---
 
 ## Who it's for
+
+![bg right:42% fit](../screens/ui/discover.png)
 
 - **The consultant** whose inbox is the business: asks become tickets, the rest is archived, unknown vendors get asked about.
 - **The engineering lead**: PR review triage every morning, blocked tickets surfaced, one Slack memo.

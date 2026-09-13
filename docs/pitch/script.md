@@ -18,17 +18,19 @@ Spoken at a natural pace this runs just under 3:10 with the hackathon slide in; 
 
 **Slide 8 — it gets quieter.** My answer became a rule. Not a vague one: exact sender, whole domain, or two distinct keywords — one shared word is a coincidence, not a rule. Same inbox the next morning: seven handled, one from the rule, zero questions. It gets quieter the longer you use it.
 
-**Slide 9 — Strands.** Every Strands feature the brief names is doing a real job. The Graph, because a workflow is a fixed, auditable sequence — a Swarm that takes a different path each morning is a bug when it's filing tickets in your name. The interrupt hook is the gate. The invocation hooks are the narrator that draws the graph. The session repository is why the terminal and the browser share one conversation. And two tools reach the page through a context variable, so a spoken sentence can end as an active workflow without anyone clicking Save.
+**Slide 9 — eight apps.** This is one workflow, across six apps in a single run. It reads the mail and the calendar together, because a ticket with no time booked for it is just a wish. Real asks become Linear issues, and it books the next free half hour to do them. Every decision is logged to Airtable with its confidence before it asks anything. The one it can't call lands on your phone as buttons. And the run writes itself up in Notion. Every credential is verified with a real call — and a run with three of the eight connected still runs, and tells you what it skipped.
 
-**Slide 10 — AWS.** It's deployed. Bedrock Nova for reasoning, through cross-region profiles. AgentCore Runtime runs the graph as an arm64 container with a session per run. AgentCore Memory holds the learned rules. Transcribe and Polly are the voice. DynamoDB is one table. EventBridge can't invoke AgentCore directly, so a twelve-line Lambda forwards the tick. Every store also has a local JSON backend, so a fresh clone runs the entire loop offline.
+**Slide 10 — Strands.** Every Strands feature the brief names is doing a real job. The Graph, because a workflow is a fixed, auditable sequence — a Swarm that takes a different path each morning is a bug when it's filing tickets in your name. The interrupt hook is the gate. The invocation hooks are the narrator that draws the graph. The session repository is why the terminal and the browser share one conversation. And two tools reach the page through a context variable, so a spoken sentence can end as an active workflow without anyone clicking Save.
 
-**Slide 11 — three surfaces.** Talk, hands-free if you like, Ctrl-Space from anywhere. A native desktop window that records the microphone itself. And a CLI with every feature — run with `--watch` streams the same events into your terminal.
+**Slide 11 — AWS.** It's deployed. Bedrock Nova for reasoning, through cross-region profiles. AgentCore Runtime runs the graph as an arm64 container with a session per run. AgentCore Memory holds the learned rules. Transcribe and Polly are the voice. DynamoDB is one table. EventBridge can't invoke AgentCore directly, so a twelve-line Lambda forwards the tick. Every store also has a local JSON backend, so a fresh clone runs the entire loop offline.
 
-**Slide 12 — who it's for.** A consultant whose inbox is the business. An engineering lead who wants PR triage and blocked tickets in one morning memo. A founder who wants to know when a competitor's pricing moves — and nothing when it doesn't. Anyone with a chore on a schedule.
+**Slide 12 — three surfaces.** Talk, hands-free if you like, Ctrl-Space from anywhere. A native desktop window that records the microphone itself. And a CLI with every feature — run with `--watch` streams the same events into your terminal.
 
-**Slide 13 — why not a chatbot.** A chatbot waits for you. Handoff runs when you're not there, with a written line it won't cross, an audit trail that says who decided what, and a memory that makes it ask less every week. The hard question for a background agent is *when may it act alone?* Everything here is one answer to that question — and the answer moves as it learns.
+**Slide 13 — who it's for.** A consultant whose inbox is the business. An engineering lead who wants PR triage and blocked tickets in one morning memo. A founder who wants to know when a competitor's pricing moves — and nothing when it doesn't. Anyone with a chore on a schedule.
 
-**Slide 14 — close.** It does the boring part. And it knows when to stop and ask. Thank you.
+**Slide 14 — why not a chatbot.** A chatbot waits for you. Handoff runs when you're not there, with a written line it won't cross, an audit trail that says who decided what, and a memory that makes it ask less every week. The hard question for a background agent is *when may it act alone?* Everything here is one answer to that question — and the answer moves as it learns.
+
+**Slide 15 — close.** It does the boring part. And it knows when to stop and ask. Thank you.
 
 ---
 
