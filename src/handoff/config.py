@@ -165,6 +165,34 @@ GMAIL_OAUTH_TOKEN = os.getenv("GMAIL_OAUTH_TOKEN", "")
 LINEAR_API_KEY = os.getenv("LINEAR_API_KEY", "")
 SLACK_BOT_TOKEN = os.getenv("SLACK_BOT_TOKEN", "")
 
+# --- Notion ----------------------------------------------------------------
+#: An internal integration secret from notion.so/my-integrations. The
+#: integration only sees pages it has been explicitly invited to, so a valid
+#: key plus an un-shared page is the normal first failure.
+NOTION_API_KEY = os.getenv("NOTION_API_KEY", "")
+#: Where a run writes its record. A database is preferred — a week of runs
+#: becomes a table you can sort — but a parent page works.
+NOTION_DATABASE_ID = os.getenv("NOTION_DATABASE_ID", "")
+NOTION_PARENT_PAGE_ID = os.getenv("NOTION_PARENT_PAGE_ID", "")
+
+# --- Telegram --------------------------------------------------------------
+#: The decision gate on a phone. Token from @BotFather; the chat id is
+#: discovered for you by `handoff doctor telegram` once you message the bot.
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
+
+# --- Airtable --------------------------------------------------------------
+#: The decision log — every action, its confidence, and who decided it. This
+#: is what makes the gate's calibration measurable rather than asserted.
+AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY", "")
+AIRTABLE_BASE_ID = os.getenv("AIRTABLE_BASE_ID", "")
+AIRTABLE_TABLE = os.getenv("AIRTABLE_TABLE", "Decisions")
+
+# --- Google Calendar -------------------------------------------------------
+#: Reuses the Google Cloud OAuth client the Gmail connection already needs;
+#: only the scope differs. "primary" is the calendar named after your email.
+GOOGLE_CALENDAR_ID = os.getenv("GOOGLE_CALENDAR_ID", "primary")
+
 #: Set by scripts/run_local.py and the test suite to avoid any Bedrock call.
 USE_FAKE_MODEL = os.getenv("HANDOFF_FAKE_MODEL", "false").lower() == "true"
 
