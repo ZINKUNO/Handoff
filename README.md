@@ -5,7 +5,7 @@
 <p align="center">
   <a href="https://handoff-eya.pages.dev"><img alt="Site" src="https://img.shields.io/badge/site-handoff--eya.pages.dev-1e1e1e?style=flat-square"></a>
   <a href="https://handoff-eya.pages.dev/docs"><img alt="Docs" src="https://img.shields.io/badge/docs-8%20guides-1e1e1e?style=flat-square"></a>
-  <img alt="Tests" src="https://img.shields.io/badge/tests-255%20passing-2f855a?style=flat-square">
+  <img alt="Tests" src="https://img.shields.io/badge/tests-313%20passing-2f855a?style=flat-square">
   <img alt="Strands" src="https://img.shields.io/badge/Strands%20Agents%20SDK-1.55-1e1e1e?style=flat-square">
   <img alt="AWS" src="https://img.shields.io/badge/AWS-Bedrock%20%C2%B7%20AgentCore%20%C2%B7%20Transcribe%20%C2%B7%20Polly-ff9900?style=flat-square&logoColor=white">
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-1e1e1e?style=flat-square"></a>
@@ -185,6 +185,7 @@ name at 8am, "different every time" is a bug.
 | `SessionRepository` + `RepositorySessionManager` | [`chat/repository.py`](src/handoff/chat/repository.py) — chats persisted in the same store as everything else; the terminal and the browser share a session |
 | Context variables into tools | [`chat/voice_tools.py`](src/handoff/chat/voice_tools.py) — `activate_workflow` and `start_run` emit on the page's channel |
 | `MCPClient` (stdio + HTTP) | [`mcp/servers.py`](src/handoff/mcp/servers.py) — Gmail, Linear, Slack, GitHub, web |
+| Direct integrations as `@tool`s | [`tools/builtins.py`](src/handoff/tools/builtins.py) — Notion, Telegram, Airtable, Calendar, loaded the same way |
 | `AgentTool` subclass | [`host/tools.py`](src/handoff/host/tools.py) — a host runtime's tools as Strands tools |
 | `OpenAIModel` subclass | [`providers.py`](src/handoff/providers.py) — repairs malformed tool-call JSON |
 | OpenTelemetry tracing | `config.configure_observability()` |
@@ -195,7 +196,7 @@ is version-sensitive — `event.interrupt(name, reason=…)` returns the human's
 answer on resume — so pin the version before changing the gate.
 
 <details>
-<summary><b>The tests that matter</b> (255 passing, lint clean)</summary>
+<summary><b>The tests that matter</b> (313 passing, lint clean)</summary>
 <p align="center"><img src="docs/screens/terminal/tests.png" width="100%" alt="make test"></p>
 
 [`tests/test_hitl_gate.py`](tests/test_hitl_gate.py) drives the gate inside a
@@ -369,8 +370,9 @@ make desktop                # native window, opens on the orb — or `make serve
 | `USE_MOCK_TOOLS` | `true` = the synthetic eight-message inbox; `false` = real MCP servers |
 | `USE_DYNAMODB` / `USE_AGENTCORE_MEMORY` | cloud state; `false` = local JSON |
 
-Full credential walkthrough — Gmail's own OAuth sign-in, Linear, Slack, GitHub
-— in [docs/SETUP.md](docs/SETUP.md). The CLI's `--state-dir` always means
+Full credential walkthrough — Gmail and Google Calendar's OAuth sign-ins,
+Linear, Slack, GitHub, Notion, Telegram, Airtable — in
+[docs/SETUP.md](docs/SETUP.md). The CLI's `--state-dir` always means
 local storage, so a scratch run can never touch the live table.
 
 ---
@@ -379,8 +381,8 @@ local storage, so a scratch run can never touch the live table.
 
 | | |
 |---|---|
-| Tests | 255 passing · `ruff` clean |
-| Doctor | Bedrock, Speech, DynamoDB, AgentCore Memory green; Gmail, Linear, Slack, GitHub skipped until keys exist |
+| Tests | 313 passing · `ruff` clean |
+| Doctor | Bedrock, Speech, DynamoDB, AgentCore Memory green; Gmail, Linear, Slack, GitHub, Notion, Telegram, Airtable, Calendar skipped until keys exist |
 | Real-model check | a spoken set-up on Nova Lite ends active and running in two of two attempts; 8 items, 7 handled alone, 1 escalated |
 | Speech round trip | Polly said a sentence, Transcribe returned it word for word |
 | Spend | a spoken turn on Nova Lite costs under a tenth of a cent; Transcribe is $0.024/min, Polly $16 per million characters; a full demo take on Nova Pro is cents |
@@ -417,7 +419,7 @@ docs/       ARCHITECTURE · SETUP · DEMO · SUBMISSION · pitch/ · site/ (guid
 site/       the landing page and docs build, deployed to Cloudflare Pages
 infra/      AgentCore, DynamoDB, Memory, IAM, Lambda, EventBridge — boto3, no console
 scripts/    architecture generator and exporter, secret guard
-tests/      255 tests
+tests/      313 tests
 ```
 
 ---
