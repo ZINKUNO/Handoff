@@ -6,14 +6,10 @@
 ## Name: Handoff
 *"You describe it. You hand it off. It runs."*
 
-## Hackathon
-- **Event:** Agents for Humans Hackathon (AWS · Devpost)
-- **Track:** Professional Agents
-- **Prize pool:** $40,000 across three tracks + $10,000 Grand Prize
-- **Deadline:** Sep 14, 2026, 5:00pm PDT
-- **SDK:** Strands Agents SDK (required)
-- **Deploy:** Amazon Bedrock AgentCore (strengthens Technical Implementation score)
-- **License:** Apache-2.0 (required, visible in repo About section)
+## Project facts
+- **SDK:** Strands Agents SDK
+- **Deploy:** Amazon Bedrock AgentCore
+- **License:** MIT
 
 ## The Problem
 Professionals lose hours every day to small, repetitive tasks — triaging email, filing tickets, sending follow-ups, compiling reports, checking dashboards. Each one is too small to justify building a dedicated tool, but together they drain real time and attention. The typical solution — another app to open and manage — just adds overhead.
@@ -28,7 +24,7 @@ Developers, operators, founders, and small-team professionals who do the same 5�
 4. **Decide** — When the agent hits a genuinely ambiguous or high-stakes moment, it fires `event.interrupt()` and surfaces a one-screen decision to the user. Nothing irreversible happens without human approval.
 5. **Learn** — AgentCore Memory stores the user's decisions, so next time the agent handles similar cases without asking.
 
-## The Golden Rule (from the hackathon brief)
+## The Golden Rule
 > "Instead of another app people open and manage, the agent runs autonomously and only surfaces when there's a real decision to make."
 
 Handoff IS this sentence, implemented as a product.
@@ -36,13 +32,13 @@ Handoff IS this sentence, implemented as a product.
 ## Why It Wins
 
 ### vs. Single-purpose agents (ClauseGuard, RenewGuard, DenialDefender)
-Handoff is **reusable** — judges see it applied to inbox triage in the demo but understand it works for any repetitive professional task. Bigger potential impact, bigger creativity score.
+Handoff is **reusable** — the demo shows inbox triage, but the same machinery runs any repetitive professional task. Bigger potential impact, bigger creativity score.
 
 ### vs. Generic platforms (Friday, n8n, Zapier)
 Handoff is **purpose-built on Strands** — not a framework swap. Every Strands feature (Graph, interrupt, MCP, Memory, AgentCore) is a first-class citizen, not bolted on. And it has a specific demo use case, not a vague "platform" pitch.
 
 ### vs. Fork-and-swap approaches
-Handoff is **built from scratch** on the official AWS starter. Full originality credit, clean Apache-2.0 license, unambiguous "new agent built with Strands."
+Handoff is **built from scratch** on the official AWS starter. Full originality credit, clean MIT license, unambiguous "new agent built with Strands."
 
 ## Judging Criteria Alignment
 

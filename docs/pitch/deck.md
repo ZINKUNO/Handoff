@@ -36,7 +36,7 @@ style: |
 
 A voice-first agent on the **Strands Agents SDK** that runs your recurring chores on AWS and asks you only when it genuinely cannot decide.
 
-<span class="pill">Agents for Humans · Professional track</span> <span class="pill">Bedrock · AgentCore · Transcribe · Polly</span> <span class="pill">Apache-2.0</span>
+<span class="pill">Autonomous workflows · human in the loop</span> <span class="pill">Bedrock · AgentCore · Transcribe · Polly</span> <span class="pill">MIT</span>
 
 ---
 
@@ -209,4 +209,4 @@ The hard question for a background agent is *when may it act alone?* Everything 
 
 # It does the boring part.<br>And it knows when to stop and ask.
 
-<p class="muted">github.com/LSUDOKO/Handoff · handoff-eya.pages.dev · Apache-2.0</p>
+<p class="muted">github.com/LSUDOKO/Handoff · handoff-eya.pages.dev · MIT</p>

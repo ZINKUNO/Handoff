@@ -2,7 +2,7 @@
 
 ## Why This Is the Most Important File
 
-The hackathon brief says: **"the agent runs autonomously and only surfaces when there's a real decision to make."**
+The promise is: **"the agent runs autonomously and only surfaces when there's a real decision to make."**
 
 The interrupt gate is that sentence, implemented as code. It is:
 - The feature the sponsor asked for

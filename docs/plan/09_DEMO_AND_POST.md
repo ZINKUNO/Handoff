@@ -1,4 +1,4 @@
-# Handoff — Demo Video Script + builder.aws.com Post
+# Handoff — Demo Video Script
 
 ---
 
@@ -78,110 +78,17 @@
 #### 4:50–5:00 — CLOSE
 **On screen:** Handoff logo + tagline + repo URL + live demo link.
 
-**Voiceover:** "Handoff. Built with Strands Agents SDK for the Agents for Humans hackathon. Professional Agents track. Thank you."
+**Voiceover:** "Handoff. Built on the Strands Agents SDK. Thank you."
 
 ---
 
 ### Video Production Tips
 - **Screen recording:** OBS Studio (free) or Loom.
 - **Voiceover:** Record separately in a quiet room; edit over screen capture.
-- **No face cam needed** — the hackathon explicitly says so.
+- **No face cam needed** — the screen is the story.
 - **Resolution:** 1080p minimum.
 - **Pacing:** don't rush the Decision Screen moment — that's the payoff.
 - **Show the trace:** the observability trace is proof the agent is real, not scripted. Pause on it for 2-3 seconds.
 - **Narrate problem/who/why explicitly** — these are the three required beats.
 
 ---
-
-## Part 2: builder.aws.com Post (Bonus Points)
-
-### Title (must contain "Agents for Humans")
-**"Agents for Humans: Building Handoff — An Autonomous Workflow Agent with Strands and AgentCore"**
-
-### Outline
-
-#### Section 1: The Problem I Wanted to Solve
-- Professionals lose hours to repetitive background tasks
-- The "another app to manage" trap
-- What if you could describe a task once and it ran forever?
-
-#### Section 2: Why Strands Agents SDK
-- Model-driven: model + system prompt + tools = agent
-- The Graph pattern for deterministic, auditable workflows
-- Why I chose Graph over Swarm (auditability in professional contexts)
-- Native MCP support for tool integration
-
-#### Section 3: The Architecture
-- Three agents: Builder, Executor, Learner
-- The interrupt gate as the centerpiece (with code snippet)
-- How `event.interrupt()` works in practice
-- The learning loop: human decisions feed back into Memory
-
-#### Section 4: Building on AgentCore
-- Runtime: serverless background execution
-- Memory: learning user preferences across runs
-- Observability: OTEL traces that prove the agent is reasoning
-- What each AgentCore service gave me that I'd have had to build from scratch
-
-#### Section 5: The Demo Use Case — Inbox Triage
-- Why email triage is the perfect demo
-- Mock data design: why I included ambiguous cases
-- The "5 auto, 3 interrupted" ratio
-
-#### Section 6: What Broke and How I Fixed It
-- Be honest about a real challenge
-- e.g., "The interrupt resume flow was trickier than expected because..."
-- e.g., "AgentCore Memory's semantic strategy needed careful key design..."
-
-#### Section 7: What I'd Build Next
-- More workflow templates (PR review, competitor monitoring, report generation)
-- Multi-user support (team workflows)
-- Workflow marketplace (share and discover)
-
-### Post Tips
-- Include code snippets (especially the interrupt gate hook)
-- Include the architecture diagram
-- Include a screenshot of the Decision Screen
-- Link to the repo
-- Publish BEFORE the deadline
-- You can submit more than one post
-
----
-
-## Part 3: Devpost Submission Text
-
-### Title
-**Handoff — Describe It. Hand It Off. It Runs.**
-
-### Tagline
-An autonomous workflow agent that turns natural-language descriptions into repeatable background workflows, powered by Strands Agents SDK.
-
-### Inspiration
-Every day, professionals lose hours to repetitive tasks that are too small to justify a custom tool but too numerous to ignore. We wanted to build an agent that handles these tasks in the background — not as another app to manage, but as a quiet worker that only interrupts when there's a genuinely ambiguous decision.
-
-### What it does
-Handoff lets you describe any repetitive professional task in plain language. It builds a workflow, runs it autonomously on schedule, and only surfaces when it encounters something genuinely ambiguous that needs your judgment. After you decide, it learns your preference so it handles similar cases automatically next time.
-
-### How we built it
-Built with the Strands Agents SDK using three coordinated agents (Builder, Executor, Learner) orchestrated as a Strands Graph. The human-in-the-loop interrupt gate uses `BeforeToolCallEvent` hooks to pause the agent loop at decision points. Deployed on Amazon Bedrock AgentCore Runtime with Memory for learning, Browser for web workflows, and full OpenTelemetry observability.
-
-### Challenges we ran into
-[Fill in honestly during the build — authenticity matters]
-
-### Accomplishments that we're proud of
-The interrupt gate — the agent handles clear cases silently and only surfaces genuinely ambiguous items. In the demo, 5 out of 8 emails are handled autonomously; only 3 trigger a human decision. That selectivity is the whole point.
-
-### What we learned
-[Fill in during the build]
-
-### What's next for Handoff
-Workflow templates for common use cases (PR review, competitor monitoring, weekly reports), multi-user team workflows, and a workflow marketplace.
-
-### Built With
-- Strands Agents SDK
-- Amazon Bedrock (Claude Sonnet)
-- Amazon Bedrock AgentCore (Runtime, Memory, Browser, Gateway, Identity)
-- FastAPI + HTMX
-- DynamoDB
-- MCP (Model Context Protocol)
-- Python

@@ -307,7 +307,7 @@ That is **every major Strands + AgentCore feature** in one project. No other sub
 ## 10. Common Pitfalls to Avoid
 
 1. **Don't guess the API** — pin `strands-agents==X.Y.Z` on Day 1 and read the docs for that version.
-2. **Don't build a chat wrapper** — the hackathon explicitly says "not another app people open and manage." The background execution + interrupt is what wins.
-3. **Don't skip the interrupt gate** — it's the single feature the hackathon brief describes. Make it work first, polish everything else second.
+2. **Don't build a chat wrapper** — the whole premise is "not another app people open and manage." The background execution + interrupt is what wins.
+3. **Don't skip the interrupt gate** — it is the single feature that defines the product. Make it work first, polish everything else second.
 4. **Don't hardcode tool calls** — use the `@tool` decorator properly so the LLM reasons about which tools to call. That's the "model-driven" philosophy of Strands.
 5. **Don't deploy a broken AgentCore** — a working local demo beats a broken cloud deploy. Get local working first, then deploy.

@@ -4,7 +4,7 @@
 
 Handoff turns natural-language descriptions of repetitive professional tasks into autonomous workflows that run on schedule — and only surface when there's a real decision to make.
 
-> Built with [Strands Agents SDK](https://strandsagents.com) for the [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/) — Professional Agents track.
+> Built with the [Strands Agents SDK](https://strandsagents.com).
 
 [Demo Video](#demo) · [Live Demo](#live-demo) · [Architecture](#architecture) · [Setup](#setup) · [How It Works](#how-it-works)
 
@@ -30,7 +30,7 @@ Developers, operators, founders, and small-team professionals who do the same ba
 
 Handoff never acts on ambiguous items without human approval. The `BeforeToolCallEvent` hook fires `event.interrupt()` when the agent's confidence is below threshold — pausing the loop and surfacing a one-screen decision to the user. Clear cases are handled silently. Only genuinely ambiguous items surface.
 
-**This is the feature the hackathon asked for:** *"the agent runs autonomously and only surfaces when there's a real decision to make."*
+**This is the whole point:** *"the agent runs autonomously and only surfaces when there's a real decision to make."*
 
 ---
 
@@ -193,13 +193,5 @@ handoff/
 
 ## License
 
-[Apache-2.0](LICENSE)
+[MIT](LICENSE)
 
----
-
-## Hackathon
-
-- **Event:** [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/)
-- **Track:** Professional Agents
-- **AWS Builder ID:** YOUR_BUILDER_ID
-- **builder.aws.com post:** [YOUR_POST_URL]

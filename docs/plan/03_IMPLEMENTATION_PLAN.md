@@ -5,7 +5,7 @@
 ```
 handoff/
 ├── README.md                          # required deliverable
-├── LICENSE                            # Apache-2.0 (required)
+├── LICENSE                            # MIT (required)
 ├── ARCHITECTURE.md                    # architecture write-up + diagram embed
 ├── pyproject.toml
 ├── requirements.txt
@@ -922,15 +922,9 @@ pytest tests/ -v
 
 ### 6.2 Demo video (≤5 min) — see `09_DEMO_VIDEO_SCRIPT.md`
 
-### 6.3 builder.aws.com post — see `10_BUILDER_POST.md`
-
-### 6.4 Devpost submission — see `11_SUBMISSION_CHECKLIST.md`
-
 ### Phase 6 deliverables checklist:
 - [ ] All tests passing
 - [ ] README.md finalized
 - [ ] Architecture diagram (PNG) in docs/
 - [ ] Demo video recorded and uploaded
-- [ ] builder.aws.com post published
-- [ ] Devpost submission complete
 - [ ] Live demo link working

@@ -79,11 +79,11 @@ HANDOFF_FAKE_MODEL=false
 
 3. `python -m handoff.cli doctor anthropic`
 
-### Option C — AWS Bedrock (what the hackathon deployment uses)
+### Option C — AWS Bedrock (what the cloud deployment uses)
 
 1. Install the AWS CLI. On Arch: `sudo pacman -S aws-cli-v2`
 2. **IAM → Users → Create user**, attach `AdministratorAccess` for a throwaway
-   hackathon account, then **Security credentials → Create access key → CLI**.
+   account, then **Security credentials → Create access key → CLI**.
 3. `aws configure` — key, secret, region, `json`. Keys go here and nowhere else;
    don't paste them into a chat or a file you might commit.
 4. In `.env`:

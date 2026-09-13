@@ -214,6 +214,6 @@ Learning Agent: store decision in Memory for next run
 
 1. **Graph over Swarm** — deterministic, auditable workflow execution.
 2. **Three agents, not one** — separation of concerns: building ≠ executing ≠ learning.
-3. **Interrupt gate on ambiguity, not on everything** — the agent handles clear cases silently; only genuinely ambiguous items surface. This is the hackathon's core requirement.
+3. **Interrupt gate on ambiguity, not on everything** — the agent handles clear cases silently; only genuinely ambiguous items surface. This is the product's core requirement.
 4. **Memory as a learning loop** — human decisions feed back into the agent's behavior. The agent improves with use.
 5. **MCP-first tool integration** — tools are MCP servers, not hardcoded functions. This makes workflows portable and extensible.

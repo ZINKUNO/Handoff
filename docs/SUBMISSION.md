@@ -1,4 +1,4 @@
-# Devpost submission — Handoff
+# Handoff — the write-up
 
 Paste-ready copy for the submission form. Replace the two placeholders at the
 bottom before submitting.
@@ -11,9 +11,9 @@ bottom before submitting.
 
 Professionals lose the first half hour of every day to work that is too small
 to automate and too constant to ignore: triaging mail, filing the real asks,
-archiving the noise. Every tool built to help is another thing to open. The
-hackathon brief put it exactly — an agent that *runs autonomously and only
-surfaces when there's a real decision to make*. We built that sentence.
+archiving the noise. Every tool built to help is another thing to open. What
+people actually want is narrower — an agent that *runs autonomously and only
+surfaces when there's a real decision to make*. Handoff is that sentence.
 
 ## What it does
 
@@ -112,7 +112,7 @@ asking about that — and a wake word for the orb.
 
 ## Links
 
-- **Repository:** https://github.com/LSUDOKO/Handoff (Apache-2.0)
+- **Repository:** https://github.com/LSUDOKO/Handoff (MIT)
 - **Site and docs:** https://handoff-eya.pages.dev
 - **Pitch deck:** `docs/pitch/deck.pdf` (also `.pptx`) · **Script:** `docs/pitch/script.md`
 - **Architecture:** `docs/architecture.png` (editable `docs/architecture.excalidraw`)

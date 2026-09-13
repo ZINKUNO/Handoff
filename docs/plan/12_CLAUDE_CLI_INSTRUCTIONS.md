@@ -204,7 +204,7 @@ claude "Read the test descriptions in docs/plan/03_IMPLEMENTATION_PLAN.md
 21. `workflows/examples/*.json` — example configs
 22. Remaining tests
 23. `README.md` — final README
-24. `LICENSE` — Apache-2.0
+24. `LICENSE` — MIT
 25. `docs/architecture.png` — diagram
 
 ---

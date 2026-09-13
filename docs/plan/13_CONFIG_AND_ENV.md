@@ -158,7 +158,7 @@ name = "handoff"
 version = "0.1.0"
 description = "Describe it. Hand it off. It runs."
 readme = "README.md"
-license = {text = "Apache-2.0"}
+license = {text = "MIT"}
 requires-python = ">=3.12"
 dependencies = [
     "strands-agents>=0.1.0",
@@ -224,16 +224,16 @@ htmlcov/
 *.log
 ```
 
-## LICENSE (Apache-2.0)
+## LICENSE (MIT)
 
 ```
-                                 Apache License
+                                 MIT License
                            Version 2.0, January 2004
                         http://www.apache.org/licenses/
 
    TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
 
-   [Full Apache-2.0 text — copy from https://www.apache.org/licenses/LICENSE-2.0.txt]
+   [Full MIT text — copy from https://opensource.org/license/mit]
 ```
 
 Download the full text from https://www.apache.org/licenses/LICENSE-2.0.txt and save as `LICENSE` in the repo root. Also set it in GitHub's repo About/Settings.
