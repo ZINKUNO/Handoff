@@ -15,6 +15,21 @@
 
 **Describe it. Hand it off. It runs.**
 
+> ## Built for the Multi-App AI Agent Hackathon
+> **Virtual · Sunday, September 13, 2026 · hosted by [Lemma](https://uselemma.ai) and [Comma Capital](https://commacap.com), judged by the founders of [Arga Labs](https://argalabs.com) and [Userlens](https://userlens.io)**
+>
+> **The brief:** build one useful, multi-step AI agent, connect it to at least three external apps, and show how you know it works.
+>
+> | Submission requirement | Where it is in this README |
+> |---|---|
+> | **01 · Project overview** | [What it promises, and where the proof is](#what-it-promises-and-where-the-proof-is) |
+> | **02 · External apps used (3+)** | [One morning, eight apps](#one-morning-eight-apps) — **eight**, not three: Gmail, Google Calendar, Linear, Notion, Airtable, Telegram, Slack, GitHub |
+> | **03 · Setup instructions** | [Run it yourself](#run-it-yourself) · full walkthrough in [docs/SETUP.md](docs/SETUP.md) · recording-day runbook in [docs/RECORDING.md](docs/RECORDING.md) |
+> | **04 · Reliability testing** | [Verification and cost](#verification-and-cost) — 313 automated tests, `handoff doctor` makes a real call against every credential, an Airtable log of every decision with its confidence |
+> | **05 · Demo video (≤2:00)** | `ADD LINK BEFORE SUBMITTING` · full word-for-word script in [docs/VIDEO_SCRIPT.md](docs/VIDEO_SCRIPT.md) |
+>
+> Judged on technical execution (30%), reliability & evaluation (25%), usefulness (20%), originality (15%) and demo clarity (10%).
+
 Handoff turns a sentence — spoken or typed — into an autonomous workflow on the
 [Strands Agents SDK](https://strandsagents.com), runs it on a schedule on AWS,
 handles what it can judge confidently, and stops to ask you only about the
@@ -445,7 +460,7 @@ src/handoff/
 ├── web/                    FastAPI + HTMX + Jinja — the shell and every page; orb.js / talk.js / work-panel.js
 ├── docs.py                 the guides, rendered for the app and the site
 ├── host/                   embed Handoff in another agent runtime
-├── workflows/              five shipped templates
+├── workflows/              six shipped templates
 ├── memory/store.py         AgentCore Memory + local preferences
 ├── mcp/servers.py          MCP registry
 ├── tools/voice.py          spoken commands, matched without a model
@@ -461,6 +476,33 @@ infra/      AgentCore, DynamoDB, Memory, IAM, Lambda, EventBridge — boto3, no 
 scripts/    architecture generator and exporter, secret guard
 tests/      313 tests
 ```
+
+---
+
+## Hackathon details
+
+**[Multi-App AI Agent Hackathon](https://uselemma.ai)** — virtual, Sunday
+September 13, 2026. Hosted by **Lemma** and **Comma Capital**; judged by the
+founders of **Arga Labs** and **Userlens**. $15,000 in prizes: $10,000 first,
+$4,000 second, $1,000 third, and every top-three team gets a guaranteed
+interview with Arga Labs or Lemma AI.
+
+| Time (Pacific) | |
+|---|---|
+| 9:00 AM | Opening, briefing & Q&A |
+| 9:30 AM – 4:00 PM | Build |
+| 4:00 PM | Submissions close |
+| 4:00 – 5:00 PM | Judging & selection |
+| 5:00 PM | Awards, on the same event link |
+
+Judged on **technical execution** (30%), **reliability & evaluation** (25%),
+**usefulness** (20%), **originality** (15%) and **demo clarity** (10%).
+
+Submission checklist, per the brief: one response per team, every team
+member's email included, an accessible GitHub repository, a demo video no
+longer than two minutes, and both reachable by the judges. There is no
+official Discord for this event — the submission form is the one linked in
+the event's calendar invite.
 
 ---
 
