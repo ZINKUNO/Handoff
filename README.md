@@ -40,14 +40,15 @@ every week.
 2. [What it promises, and where the proof is](#what-it-promises-and-where-the-proof-is)
 3. [Say it, watch it run](#say-it-watch-it-run)
 4. [The gate](#the-gate)
-5. [Architecture](#architecture)
-6. [Built on Strands — with proof](#built-on-strands--with-proof)
-7. [On AWS — with proof](#on-aws--with-proof)
-8. [Three surfaces: Talk, terminal, browser](#three-surfaces-talk-terminal-browser)
-9. [Run it yourself](#run-it-yourself)
-10. [Verification and cost](#verification-and-cost)
-11. [Layout](#layout)
-12. [Licence](#licence)
+5. [One morning, eight apps](#one-morning-eight-apps)
+6. [Architecture](#architecture)
+7. [Built on Strands — with proof](#built-on-strands--with-proof)
+8. [On AWS — with proof](#on-aws--with-proof)
+9. [Three surfaces: Talk, terminal, browser](#three-surfaces-talk-terminal-browser)
+10. [Run it yourself](#run-it-yourself)
+11. [Verification and cost](#verification-and-cost)
+12. [Layout](#layout)
+13. [Licence](#licence)
 
 ---
 
@@ -141,6 +142,45 @@ it survives a restart.
 
 What it is not: an approval prompt on every action. An agent that interrupts
 on everything is just a worse inbox.
+
+---
+
+## One morning, eight apps
+
+One workflow, [`morning_ops.json`](src/handoff/workflows/morning_ops.json), is
+the whole product in a single run. At 8am on a weekday, with nobody watching:
+
+| # | App | What happens |
+|---|---|---|
+| 1 | **Gmail** | Read what arrived overnight. Archive the newsletters. Draft the reply to your manager. |
+| 2 | **Google Calendar** | Read today before deciding anything — the schedule is context, not an afterthought. |
+| 3 | **Linear** | Every real ask becomes an issue, labelled by where it came from. |
+| 4 | **Google Calendar** | Find the first gap long enough, and book the work it just filed. A ticket with no time is a wish. |
+| 5 | **Airtable** | Append every decision — item, action, confidence, and whether the agent or a human called it. |
+| 6 | **Telegram** | The one thing it genuinely cannot call arrives on your phone with the answers as buttons. One tap resumes the run. |
+| 7 | **Notion** | The whole run written up: handled alone, asked about, decided, and the tickets and blocks that came out of it. |
+| 8 | **Slack** | *(the older templates)* the digest lands in the channel that wanted it. |
+
+The order is the point. It reads before it writes, it books time for what it
+files, it logs what it decided *before* it asks, and it only interrupts once —
+for the batch, not per item. The tap on the phone goes through the same
+`submit_decision` path the browser uses, so the run resumes identically and
+the learner records the rule either way. Tomorrow it asks about one fewer
+thing.
+
+**Why the log matters.** Airtable is not decoration. A week of rows is the
+answer to the only question worth asking about a confidence gate — *how often
+does it ask, and when it acted alone, was it right?* — without re-reading a
+single transcript.
+
+```bash
+handoff workflows show morning-ops-run     # the config
+handoff runs start morning-ops-run         # run it now
+handoff answers listen                     # take the taps from your phone
+```
+
+Every integration it names is in the registry, and a run with three of the
+eight connected still runs — it uses what is there and says what it skipped.
 
 ---
 
