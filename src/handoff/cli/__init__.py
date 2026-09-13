@@ -32,6 +32,7 @@ _GROUP_MODULES = (
     "handoff.cli.skills",
     "handoff.cli.memory",
     "handoff.cli.creds",
+    "handoff.cli.inbox",
     "handoff.cli.schedules",
     "handoff.cli.settings",
     "handoff.cli.speech",
