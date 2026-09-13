@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Deploy Handoff to Bedrock AgentCore Runtime.
 
     python infra/deploy_agentcore.py --check     # what's missing before I can deploy

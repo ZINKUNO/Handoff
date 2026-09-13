@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Create or update the Handoff AgentCore Runtime from the image in ECR.
 
     python infra/agentcore_runtime.py                 # role + runtime, wait until READY

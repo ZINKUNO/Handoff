@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Write docs/architecture.excalidraw — the system, as an editable diagram.
 
 Excalidraw's file format is plain JSON: elements with positions, sizes, text

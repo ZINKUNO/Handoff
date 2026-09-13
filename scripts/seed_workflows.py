@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Load the example workflow configs into the store."""
 
 from __future__ import annotations
