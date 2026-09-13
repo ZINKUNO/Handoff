@@ -289,6 +289,116 @@ def check_github() -> dict[str, Any]:
         return _result("GitHub", FAIL, str(exc)[:140])
 
 
+
+def check_notion() -> dict[str, Any]:
+    from handoff.tools import notion
+
+    if not notion.configured():
+        return _result(
+            "Notion",
+            WARN,
+            "no key set",
+            "notion.so/my-integrations → New integration → copy the secret into NOTION_API_KEY",
+        )
+    try:
+        result = notion.check()
+    except Exception as exc:
+        return _result("Notion", FAIL, str(exc)[:140])
+
+    if not result.get("ok"):
+        return _result(
+            "Notion",
+            FAIL,
+            str(result.get("error"))[:200],
+            "Share the target page with the integration: open it, '...' → Connections → add it",
+        )
+    if result.get("note"):
+        return _result("Notion", WARN, result["note"], "Set NOTION_DATABASE_ID to the database to write into")
+    return _result("Notion", OK, f"{result.get('bot')} → {result.get('destination')}")
+
+
+def check_telegram() -> dict[str, Any]:
+    from handoff.tools import telegram
+
+    if not config.TELEGRAM_BOT_TOKEN:
+        return _result(
+            "Telegram",
+            WARN,
+            "no bot token set",
+            "Message @BotFather → /newbot → copy the token into TELEGRAM_BOT_TOKEN",
+        )
+    try:
+        result = telegram.check()
+    except Exception as exc:
+        return _result("Telegram", FAIL, str(exc)[:140])
+
+    if not result.get("ok"):
+        # The common case is a valid token with no chat id yet, and check()
+        # has already gone and found the id. Hand it over instead of saying no.
+        found = result.get("chat_id")
+        return _result(
+            "Telegram",
+            WARN if found or "send @" in str(result.get("error")) else FAIL,
+            str(result.get("error"))[:200],
+            f"Add TELEGRAM_CHAT_ID={found} to .env" if found else "",
+        )
+    return _result("Telegram", OK, f"@{result.get('bot')} → chat {result.get('chat_id')}")
+
+
+def check_airtable() -> dict[str, Any]:
+    from handoff.tools import airtable
+
+    if not config.AIRTABLE_API_KEY:
+        return _result(
+            "Airtable",
+            WARN,
+            "no token set",
+            "airtable.com/create/tokens → scopes data.records:write + schema.bases:read",
+        )
+    try:
+        result = airtable.check()
+    except Exception as exc:
+        return _result("Airtable", FAIL, str(exc)[:140])
+
+    if not result.get("ok"):
+        return _result("Airtable", FAIL, str(result.get("error"))[:200])
+
+    missing = result.get("missing") or []
+    if missing:
+        return _result(
+            "Airtable",
+            WARN,
+            f"{result['table']} reachable, missing columns: {', '.join(missing)}",
+            "Add them to the table, or those values are dropped from the log",
+        )
+    return _result("Airtable", OK, f"{result['table']} ({result.get('columns')} columns)")
+
+
+def check_gcal() -> dict[str, Any]:
+    from handoff.tools import gcal
+
+    if not gcal.configured():
+        return _result(
+            "Google Calendar",
+            WARN,
+            "not signed in",
+            "Run: handoff connect gcal  (reuses the Gmail OAuth client JSON)",
+        )
+    try:
+        result = gcal.check()
+    except Exception as exc:
+        return _result("Google Calendar", FAIL, str(exc)[:140])
+
+    if not result.get("ok"):
+        return _result(
+            "Google Calendar",
+            FAIL,
+            str(result.get("error"))[:200],
+            "Run: handoff connect gcal  to sign in again",
+        )
+    return _result("Google Calendar", OK, f"{result.get('calendar')} ({result.get('timezone')})")
+
+
 # --- AWS services ----------------------------------------------------------
 
 
@@ -344,6 +454,10 @@ CHECKS = {
     "linear": check_linear,
     "slack": check_slack,
     "github": check_github,
+    "notion": check_notion,
+    "telegram": check_telegram,
+    "airtable": check_airtable,
+    "gcal": check_gcal,
     "dynamodb": check_dynamodb,
     "memory": check_agentcore_memory,
 }
