@@ -81,6 +81,34 @@ PROVIDERS: dict[str, Provider] = {
         "Faster to set up than a bot, but bound to one channel.",
         "https://hooks.slack.com/", "slack", "integration",
     ),
+    "notion": Provider(
+        "notion", "Notion", CredentialKind.API_KEY, "NOTION_API_KEY",
+        "https://www.notion.so/my-integrations",
+        "Internal integration secret. Then share the target page with it: '...' → Connections.",
+        "ntn_", "notion", "integration",
+        ["create_page", "append", "search"],
+    ),
+    "telegram": Provider(
+        "telegram", "Telegram", CredentialKind.TOKEN, "TELEGRAM_BOT_TOKEN",
+        "https://t.me/BotFather",
+        "Bot token from @BotFather. Message the bot once, then doctor finds your chat id.",
+        "", "telegram", "integration",
+        ["send", "ask"],
+    ),
+    "airtable": Provider(
+        "airtable", "Airtable", CredentialKind.TOKEN, "AIRTABLE_API_KEY",
+        "https://airtable.com/create/tokens",
+        "Personal access token with data.records:write and schema.bases:read.",
+        "pat", "airtable", "integration",
+        ["log_decision"],
+    ),
+    "gcal": Provider(
+        "gcal", "Google Calendar", CredentialKind.OAUTH, "",
+        "https://console.cloud.google.com",
+        "One-time Google sign-in, reusing the Gmail OAuth client. Scope: calendar.events.",
+        "", "gcal", "integration",
+        ["list_events", "find_free_slot", "create_event"],
+    ),
     "github": Provider(
         "github", "GitHub", CredentialKind.TOKEN, "GITHUB_TOKEN",
         "https://github.com/settings/tokens",
@@ -322,6 +350,26 @@ def catalogue(workspace_id: str | None = None) -> list[dict[str, Any]]:
     for key, spec in PROVIDERS.items():
         cred = by_provider.get(key)
         in_env = bool(spec.env_var and os.environ.get(spec.env_var))
+
+        if key == "gcal":
+            # Like Gmail: no secret is stored, the token is a file the OAuth
+            # flow writes and refreshes itself.
+            from handoff.tools import gcal
+
+            signed_in = gcal.configured()
+            rows.append(
+                {
+                    "provider": key, "label": spec.label, "kind": spec.kind.value,
+                    "category": spec.category, "hint": spec.hint, "help_url": spec.help_url,
+                    "prefix": spec.prefix, "actions": spec.actions,
+                    "connected": signed_in,
+                    "status": "connected" if signed_in else "disconnected",
+                    "masked": str(gcal.token_path()) if signed_in else "",
+                    "fingerprint": "", "credential_id": "", "last_error": "", "last_checked": "",
+                    "from_env_only": False, "gmail": None,
+                }
+            )
+            continue
 
         if key == "gmail":
             # No secret is ever stored for Gmail — it's a file on disk that
