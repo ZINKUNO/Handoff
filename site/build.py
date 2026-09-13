@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Build the static site: the landing page, the docs, assets and screenshots.
 
     python site/build.py                 # -> site/dist

@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  *
  * Behaviour for the landing page and the docs. No framework, no build step.
  * Every feature checks for its element first, so the same file runs on both

@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  *
  * A small canvas-2D orb with the same contract as the app's WebGL orb, so the
  * landing page always has a working orb even when orb.js is not built yet:
