@@ -73,6 +73,8 @@ filterwarnings = ["ignore::DeprecationWarning"]
 [tool.ruff]
 line-length = 100
 target-version = "py312"
+# The video pipeline is a build tool run by hand, not product code.
+extend-exclude = ["scripts/video"]
 
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]

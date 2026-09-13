@@ -39,9 +39,14 @@ DORA/
 
 # Screen recordings
 *.mp4
+# ...except the two-minute submission cut, which the README links to
+!docs/video/handoff-demo-2min.mp4
 
 # Built static site (deployed with wrangler, not committed)
 site/dist/
 
 # wrangler local cache
 .wrangler/
+
+# Video pipeline scratch (frames, tour recordings, work files)
+scripts/video/work/

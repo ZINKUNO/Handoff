@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handoff — how it works</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Comfortaa:wght@600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f4ef; --ink:#2b2a28; --mute:rgba(43,42,40,.55); --line:rgba(43,42,40,.14);
+    --amber:#b7791f; --green:#2f855a; --teal:#2b8a8a; --violet:#6b5bd2; --blue:#3b6fd4; --red:#c0392b;
+    --card:#ffffff; --shadow:0 18px 50px rgba(30,25,15,.12);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--ink);
+    font-family:"Instrument Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .scene{position:absolute;inset:0;opacity:0}
+  .wordmark{font-family:"Comfortaa",sans-serif;font-weight:600;letter-spacing:-.02em}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .pill{display:inline-block;border:1.5px solid var(--line);border-radius:999px;padding:10px 22px;font-size:24px;color:var(--ink)}
+  .pill.solid{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .card{background:var(--card);border-radius:22px;box-shadow:var(--shadow);border:1px solid rgba(43,42,40,.06)}
+  .h{font-size:76px;font-weight:500;letter-spacing:-.03em;line-height:1.04;margin:0}
+  .sub{font-size:30px;color:var(--mute);line-height:1.4}
+  .drift{position:absolute;inset:-200px;background:
+    radial-gradient(900px 600px at 20% 30%, rgba(183,121,31,.10), transparent 60%),
+    radial-gradient(800px 700px at 80% 70%, rgba(107,91,210,.08), transparent 60%),
+    radial-gradient(700px 500px at 60% 10%, rgba(43,138,138,.08), transparent 60%)}
+  .caption{position:absolute;left:0;right:0;bottom:64px;text-align:center;font-size:30px;color:var(--ink);opacity:.9}
+  .caption span{background:rgba(255,255,255,.75);padding:10px 22px;border-radius:14px;backdrop-filter:blur(6px)}
+  .brand{position:absolute;left:72px;top:52px;font-size:30px}
+  .brand .wordmark{font-size:34px}
+  .brand .tag{color:var(--mute);font-size:22px;margin-left:16px}
+  .orb{border-radius:50%;background:radial-gradient(circle at 35% 30%, #fff 0, rgba(255,255,255,0) 40%),
+    radial-gradient(circle at 50% 50%, var(--c,#3b6fd4) 0, color-mix(in oklab, var(--c,#3b6fd4) 70%, #000) 100%);
+    box-shadow:0 30px 80px color-mix(in oklab, var(--c,#3b6fd4) 35%, transparent), inset 0 -20px 40px rgba(0,0,0,.25)}
+  /* mail rows */
+  .mailrow{display:flex;align-items:center;gap:18px;height:54px;padding:0 22px;border-bottom:1px solid var(--line);font-size:22px}
+  .mailrow .dot{width:12px;height:12px;border-radius:50%;background:var(--blue)}
+  .mailrow .from{width:260px;font-weight:600}
+  .mailrow .subj{color:var(--ink)}
+  .mailrow .prev{color:var(--mute);margin-left:auto;font-size:20px}
+  /* graph */
+  .node{position:absolute;width:280px;height:110px;border-radius:20px;background:#fff;border:2px solid var(--line);
+    display:flex;flex-direction:column;justify-content:center;align-items:center;box-shadow:var(--shadow);font-size:26px;font-weight:600}
+  .node small{font-size:18px;color:var(--mute);font-weight:500;margin-top:4px}
+  .tile{position:absolute;width:190px;height:150px;border-radius:22px;background:#fff;border:2px solid var(--line);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;box-shadow:var(--shadow)}
+  .tile .glyph{width:64px;height:64px;border-radius:18px;display:flex;align-items:center;justify-content:center;
+    font-weight:700;font-size:28px;color:#fff}
+  .tile .name{font-size:22px;font-weight:600}
+  .tile .done{position:absolute;top:-14px;right:-14px;width:40px;height:40px;border-radius:50%;background:var(--green);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;transform:scale(0)}
+  /* bars */
+  .bar{display:flex;align-items:center;gap:22px;height:64px;font-size:24px}
+  .bar .lbl{width:600px;text-align:right;color:var(--ink);font-size:22px;line-height:1.15}
+  .bar .track{position:relative;width:760px;height:26px;border-radius:999px;background:rgba(43,42,40,.08);overflow:hidden}
+  .bar .fill{position:absolute;inset:0;border-radius:999px;background:var(--green);transform-origin:left;transform:scaleX(0)}
+  .bar .pct{width:110px;font-weight:600;font-family:"JetBrains Mono",monospace}
+  /* phone */
+  .phone{position:absolute;width:440px;height:900px;border-radius:56px;background:#111;padding:16px;box-shadow:0 40px 100px rgba(0,0,0,.35)}
+  .phone .screen{width:100%;height:100%;border-radius:42px;background:#0e1621;overflow:hidden;position:relative;color:#fff;font-size:20px}
+  .phone .top{height:92px;background:#17212b;display:flex;align-items:center;padding:0 24px;gap:14px;font-weight:600;font-size:22px}
+  .phone .top .av{width:44px;height:44px;border-radius:50%;background:var(--violet);display:flex;align-items:center;justify-content:center;font-weight:700}
+  .bubble{position:absolute;left:18px;right:60px;top:120px;background:#182533;border-radius:18px;padding:18px 20px;line-height:1.35;font-size:20px}
+  .bubble b{display:block;margin-bottom:8px;color:#fff}
+  .bubble .k{color:#8fb3d9}
+  .btns{position:absolute;left:18px;right:60px;top:470px;display:flex;flex-direction:column;gap:8px}
+  .btns div{background:#1f2f3f;border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:11px;text-align:center;font-size:21px;color:#7fc4ff}
+  .finger{position:absolute;width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.35);border:3px solid rgba(255,255,255,.9);transform:scale(0)}
+  /* table */
+  table{border-collapse:collapse;width:100%;font-size:23px}
+  th{ text-align:left;font-weight:600;color:var(--mute);padding:14px 18px;border-bottom:2px solid var(--line);font-size:20px;letter-spacing:.02em;text-transform:uppercase}
+  td{padding:16px 18px;border-bottom:1px solid var(--line)}
+  td.mono{font-family:"JetBrains Mono",monospace}
+  .tag{display:inline-block;padding:4px 12px;border-radius:999px;font-size:19px;font-weight:600}
+  .tag.agent{background:rgba(47,133,90,.14);color:var(--green)}
+  .tag.human{background:rgba(183,121,31,.16);color:var(--amber)}
+  .rule{display:inline-flex;align-items:center;gap:16px;background:#fff;border:2px solid var(--line);border-radius:18px;padding:22px 30px;font-size:28px;box-shadow:var(--shadow)}
+  .rule .mono{background:rgba(43,42,40,.06);padding:4px 12px;border-radius:8px;font-size:24px}
+  .arrow{color:var(--mute)}
+  .week{display:flex;gap:26px;align-items:flex-end;height:280px}
+  .week .col{width:120px;display:flex;flex-direction:column;align-items:center;gap:12px}
+  .week .stick{width:100%;background:var(--amber);border-radius:14px 14px 6px 6px;transform-origin:bottom;transform:scaleY(0)}
+  .week .day{font-size:22px;color:var(--mute)}
+  .week .n{font-size:30px;font-weight:600;font-family:"JetBrains Mono",monospace}
+  .code{white-space:pre;background:#1e1c19;color:#efe9de;border-radius:18px;padding:26px 32px;font-family:"JetBrains Mono",monospace;font-size:26px;line-height:1.5;box-shadow:var(--shadow)}
+  .code .c{color:#8aa2b2}.code .k{color:#f0b35a}.code .f{color:#9ad4ff}
+</style>
+</head>
+<body>
+<div class="drift"></div>
+
+<!-- ============ 1. TITLE ============ -->
+<section class="scene" id="title">
+  <div class="brand"><span class="wordmark">handoff</span></div>
+  <div id="t-orb" class="orb" style="--c:#3b6fd4;position:absolute;left:1180px;top:290px;width:460px;height:460px"></div>
+  <div style="position:absolute;left:150px;top:300px;width:1000px">
+    <h1 class="h" id="t-h1" style="font-size:112px">Describe it.<br>Hand it off.<br>It runs.</h1>
+    <p class="sub" id="t-sub" style="margin-top:34px;max-width:900px">An agent that runs your recurring work across real apps — and only asks when there is a real decision to make.</p>
+    <div id="t-pill" style="margin-top:44px"><span class="pill solid">Built for the Multi-App AI Agent Hackathon · September 13, 2026</span></div>
+  </div>
+</section>
+
+<!-- ============ 2. PROBLEM ============ -->
+<section class="scene" id="problem">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">the problem</span></div>
+  <div class="card" id="p-inbox" style="position:absolute;left:150px;top:170px;width:1040px;height:760px;overflow:hidden">
+    <div style="display:flex;align-items:center;gap:16px;padding:22px 26px;border-bottom:1px solid var(--line);font-size:24px;font-weight:600">
+      Inbox <span class="pill" style="font-size:18px;padding:4px 14px;margin-left:8px" id="p-count">40 unread</span>
+      <span style="margin-left:auto;color:var(--mute);font-weight:500;font-size:20px">Monday · 08:02</span>
+    </div>
+    <div id="p-rows"></div>
+  </div>
+  <div style="position:absolute;left:1270px;top:220px;width:520px">
+    <div id="p-40" style="font-size:190px;font-weight:600;letter-spacing:-.05em;line-height:1">40</div>
+    <div id="p-40l" class="sub" style="font-size:34px;margin-top:-10px">unread, every morning</div>
+    <div id="p-3" style="margin-top:56px;font-size:96px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--amber)">3</div>
+    <div id="p-3l" class="sub" style="font-size:30px">are real asks</div>
+    <div id="p-25" style="margin-top:56px;font-size:96px;font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--red)">25 min</div>
+    <div id="p-25l" class="sub" style="font-size:30px">lost before the first coffee</div>
+  </div>
+</section>
+
+<!-- ============ 3. SENTENCE ============ -->
+<section class="scene" id="sentence">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">say it once</span></div>
+  <div id="s-orb" class="orb" style="--c:#2b8a8a;position:absolute;left:150px;top:230px;width:150px;height:150px"></div>
+  <div id="s-quote" style="position:absolute;left:340px;top:220px;width:1400px;font-size:52px;line-height:1.25;font-weight:500;letter-spacing:-.015em">
+    <span id="s-typed" style="display:inline-block;clip-path:inset(0 100% 0 0)">“Every weekday at eight, triage my inbox. Real asks become Linear tickets, book me time to do them, archive the newsletters, and ask me about anything you're not sure of.”</span>
+  </div>
+  <div class="card" id="s-card" style="position:absolute;left:340px;top:560px;width:1240px;padding:34px 40px">
+    <div style="display:flex;align-items:center;gap:18px">
+      <div style="font-size:34px;font-weight:600">Morning Operations Run</div>
+      <span class="pill" style="font-size:19px;padding:6px 16px;background:rgba(47,133,90,.12);border-color:transparent;color:var(--green)">active</span>
+      <span class="mono" style="margin-left:auto;color:var(--mute);font-size:22px">0 8 * * 1-5 · Asia/Kolkata</span>
+    </div>
+    <div style="display:flex;gap:14px;margin-top:26px;flex-wrap:wrap" id="s-apps">
+      <span class="pill" style="font-size:22px">Gmail</span><span class="pill" style="font-size:22px">Google Calendar</span><span class="pill" style="font-size:22px">Linear</span>
+      <span class="pill" style="font-size:22px">Notion</span><span class="pill" style="font-size:22px">Airtable</span><span class="pill" style="font-size:22px">Telegram</span>
+    </div>
+    <div style="display:flex;align-items:center;gap:16px;margin-top:28px;font-size:24px">
+      <span style="color:var(--mute)">Acts alone above</span>
+      <div style="position:relative;width:520px;height:16px;border-radius:999px;background:rgba(43,42,40,.08)">
+        <div style="position:absolute;left:0;top:0;bottom:0;width:70%;background:linear-gradient(90deg,var(--amber),var(--green));border-radius:999px"></div>
+        <div id="s-thr" style="position:absolute;left:70%;top:-10px;width:4px;height:36px;background:var(--ink);border-radius:2px"></div>
+      </div>
+      <span class="mono" style="font-weight:600">0.70</span>
+      <span style="color:var(--mute)">· asks below it</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. RUN ============ -->
+<section class="scene" id="run">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">08:00 · nobody watching</span></div>
+  <svg id="r-svg" width="1920" height="1080" style="position:absolute;inset:0" fill="none" stroke="rgba(43,42,40,.35)" stroke-width="4" stroke-linecap="round">
+    <path id="r-l1" pathLength="1" d="M 470 540 L 690 540"/>
+    <path id="r-l2" pathLength="1" d="M 970 540 L 1190 540"/>
+    <!-- executor to tiles -->
+    <path id="r-t1" pathLength="1" d="M 830 485 C 830 380, 560 380, 560 330" stroke="var(--blue)"/>
+    <path id="r-t2" pathLength="1" d="M 830 485 C 830 380, 830 380, 830 330" stroke="var(--teal)"/>
+    <path id="r-t3" pathLength="1" d="M 830 485 C 830 380, 1100 380, 1100 330" stroke="var(--violet)"/>
+    <path id="r-t4" pathLength="1" d="M 830 595 C 830 700, 560 700, 560 750" stroke="var(--teal)"/>
+    <path id="r-t5" pathLength="1" d="M 830 595 C 830 700, 830 700, 830 750" stroke="var(--amber)"/>
+    <path id="r-t6" pathLength="1" d="M 830 595 C 830 700, 1100 700, 1100 750" stroke="var(--ink)"/>
+  </svg>
+  <div class="node" id="r-n1" style="left:190px;top:485px">trigger<small>is this a legitimate wake-up?</small></div>
+  <div class="node" id="r-n2" style="left:690px;top:485px;border-color:var(--ink)">executor<small>does the work · asks when unsure</small></div>
+  <div class="node" id="r-n3" style="left:1190px;top:485px">completer<small>writes the audit trail</small></div>
+  <!-- tiles: top row -->
+  <div class="tile" id="r-a1" style="left:465px;top:180px"><div class="glyph" style="background:var(--blue)">M</div><div class="name">Gmail</div><div class="done">✓</div></div>
+  <div class="tile" id="r-a2" style="left:735px;top:180px"><div class="glyph" style="background:var(--teal)">31</div><div class="name">Calendar</div><div class="done">✓</div></div>
+  <div class="tile" id="r-a3" style="left:1005px;top:180px"><div class="glyph" style="background:var(--violet)">L</div><div class="name">Linear</div><div class="done">✓</div></div>
+  <!-- bottom row -->
+  <div class="tile" id="r-a4" style="left:465px;top:750px"><div class="glyph" style="background:var(--teal)">+</div><div class="name">Book time</div><div class="done">✓</div></div>
+  <div class="tile" id="r-a5" style="left:735px;top:750px"><div class="glyph" style="background:var(--amber)">A</div><div class="name">Airtable log</div><div class="done">✓</div></div>
+  <div class="tile" id="r-a6" style="left:1005px;top:750px"><div class="glyph" style="background:var(--ink)">N</div><div class="name">Notion</div><div class="done">✓</div></div>
+  <div class="card" id="r-tally" style="position:absolute;left:1545px;top:400px;width:330px;padding:28px 32px">
+    <div style="font-size:20px;color:var(--mute);text-transform:uppercase;letter-spacing:.04em">this run</div>
+    <div style="font-size:74px;font-weight:600;letter-spacing:-.04em;line-height:1.05;margin-top:8px;color:var(--green)">7</div>
+    <div class="sub" style="font-size:24px">handled alone</div>
+    <div style="font-size:74px;font-weight:600;letter-spacing:-.04em;line-height:1.05;margin-top:22px;color:var(--amber)">1</div>
+    <div class="sub" style="font-size:24px">set aside for you</div>
+  </div>
+</section>
+
+<!-- ============ 5. GATE ============ -->
+<section class="scene" id="gate">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">the gate</span></div>
+  <div style="position:absolute;left:120px;top:170px" id="g-bars">
+    <div class="bar"><div class="lbl">TechCrunch daily → <b>archive</b></div><div class="track"><div class="fill" style="--w:.96"></div></div><div class="pct">0.96</div></div>
+    <div class="bar"><div class="lbl">Sam (teammate): fix the export bug → <b>file ticket</b></div><div class="track"><div class="fill" style="--w:.92"></div></div><div class="pct">0.92</div></div>
+    <div class="bar"><div class="lbl">GitHub: CI failed on main → <b>file ticket</b></div><div class="track"><div class="fill" style="--w:.90"></div></div><div class="pct">0.90</div></div>
+    <div class="bar"><div class="lbl">Your manager: Q3 numbers? → <b>draft reply</b></div><div class="track"><div class="fill" style="--w:.88"></div></div><div class="pct">0.88</div></div>
+    <div class="bar"><div class="lbl">Product Hunt digest → <b>archive</b></div><div class="track"><div class="fill" style="--w:.95"></div></div><div class="pct">0.95</div></div>
+    <div class="bar"><div class="lbl">Priya (teammate): review my PR → <b>file ticket</b></div><div class="track"><div class="fill" style="--w:.86"></div></div><div class="pct">0.86</div></div>
+    <div class="bar"><div class="lbl">Calendar: standup moved → <b>skip</b></div><div class="track"><div class="fill" style="--w:.83"></div></div><div class="pct">0.83</div></div>
+    <div class="bar" id="g-low"><div class="lbl">partnerships@vendor.com: “strategic partnership” → <b>?</b></div><div class="track"><div class="fill" style="--w:.40;background:var(--amber)"></div></div><div class="pct" style="color:var(--amber)">0.40</div></div>
+  </div>
+  <div id="g-thr" style="position:absolute;left:1274px;top:160px;width:0;height:540px;border-left:4px dashed var(--ink);opacity:.8"></div>
+  <div id="g-thrl" class="mono" style="position:absolute;left:1290px;top:150px;font-size:22px;font-weight:600">threshold 0.70</div>
+  <div id="g-wait" style="position:absolute;left:1600px;top:700px;font-size:26px;color:var(--amber);font-weight:600">● waiting on you</div>
+  <div class="code" id="g-code" style="position:absolute;left:120px;top:770px;width:1400px">
+<span class="c"># BeforeToolCallEvent — runs before the tool body does</span>
+<span class="k">if</span> confidence &lt; threshold:
+    <span class="c"># nothing has happened to your mail yet</span>
+    response = event.<span class="f">interrupt</span>(name, reason=payload)</div>
+</section>
+
+<!-- ============ 6. PHONE ============ -->
+<section class="scene" id="phone">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">one tap</span></div>
+  <div class="phone" id="ph" style="left:1120px;top:90px">
+    <div class="screen">
+      <div class="top"><div class="av">H</div>Handoff <span style="margin-left:auto;font-weight:400;color:#8fb3d9;font-size:18px">bot</span></div>
+      <div class="bubble" id="ph-msg"><b>Handoff needs your input</b>
+        <span class="k">Item:</span> Strategic partnership opportunity — time sensitive<br>
+        <span class="k">From:</span> partnerships@vendor.com<br>
+        <span class="k">Why:</span> unknown sender, real stakes; can't tell if it's a lead or cold outreach<br>
+        <span class="k">My best guess:</span> file a ticket (40%)</div>
+      <div class="btns" id="ph-btns">
+        <div>Do what you suggested</div>
+        <div id="ph-b2">Archive it</div>
+        <div>Draft a reply</div>
+        <div>File a ticket</div>
+        <div>Leave it</div>
+      </div>
+      <div class="finger" id="ph-finger" style="left:190px;top:522px"></div>
+      <div id="ph-ok" class="bubble" style="top:768px;padding:14px 18px;background:#1d3b2a;color:#c7f0d4;font-size:19px;transform:translateY(40px);opacity:0"><b style="color:#c7f0d4">Done — archived.</b> Run resumed and finished. 8 of 8 handled.</div>
+    </div>
+  </div>
+  <div style="position:absolute;left:150px;top:300px;width:880px">
+    <h2 class="h" id="ph-h" style="font-size:84px">It stops <span style="color:var(--amber)">once</span>.<br>You tap once.</h2>
+    <p class="sub" id="ph-s" style="margin-top:30px;font-size:30px;max-width:820px">The question lands on your phone with the real answers as buttons. A tap goes through the same <span class="mono" style="font-size:26px">submit_decision</span> path as the browser — the run resumes exactly where it stopped.</p>
+    <div id="ph-done" style="margin-top:40px"><span class="pill" style="font-size:26px;padding:12px 26px;background:rgba(47,133,90,.12);border-color:transparent;color:var(--green);font-weight:600">● run resumed → DONE</span></div>
+  </div>
+</section>
+
+<!-- ============ 7. EVIDENCE ============ -->
+<section class="scene" id="evidence">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">how you know it works</span></div>
+  <div class="card" id="e-table" style="position:absolute;left:120px;top:170px;width:1180px;padding:10px 12px 18px">
+    <div style="display:flex;align-items:center;gap:14px;padding:16px 18px 6px;font-size:22px;font-weight:600"><span class="glyph" style="width:34px;height:34px;border-radius:10px;background:var(--amber);color:#fff;display:inline-flex;align-items:center;justify-content:center">A</span> Airtable · Decisions</div>
+    <table>
+      <thead><tr><th style="width:44%">Item</th><th>Action</th><th>Confidence</th><th>Decided by</th></tr></thead>
+      <tbody id="e-rows">
+        <tr><td>TechCrunch daily</td><td>archive</td><td class="mono">0.96</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>Sam: fix the export bug</td><td>file_ticket</td><td class="mono">0.92</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>GitHub: CI failed on main</td><td>file_ticket</td><td class="mono">0.90</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>Manager: Q3 numbers?</td><td>draft_reply</td><td class="mono">0.88</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>Product Hunt digest</td><td>archive</td><td class="mono">0.95</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>Priya: review my PR</td><td>file_ticket</td><td class="mono">0.86</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>Calendar: standup moved</td><td>skip</td><td class="mono">0.83</td><td><span class="tag agent">agent</span></td></tr>
+        <tr><td>partnerships@vendor.com: strategic partnership</td><td>archive</td><td class="mono" style="color:var(--amber)">0.40</td><td><span class="tag human">human</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card" id="e-notion" style="position:absolute;left:1340px;top:170px;width:460px;padding:30px 34px">
+    <div style="display:flex;align-items:center;gap:12px;font-size:20px;font-weight:600"><span class="glyph" style="width:34px;height:34px;border-radius:10px;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center">N</span> Notion · Handoff runs</div>
+    <div style="font-size:30px;font-weight:600;margin-top:22px;letter-spacing:-.01em">Morning run — Mon 15 Sep</div>
+    <div class="sub" style="font-size:22px;margin-top:16px;line-height:1.5">Handled 7 on my own: 2 archived, 3 tickets filed and time booked for each, 1 reply drafted, 1 skipped.<br><br>Asked about 1 — you said archive. That's a rule now.</div>
+  </div>
+  <div id="e-line" style="position:absolute;left:120px;top:905px;font-size:40px;font-weight:500;letter-spacing:-.02em">How often does it ask? When it acted alone, was it right? <span style="color:var(--mute)">— a table, not a claim.</span></div>
+</section>
+
+<!-- ============ 8. LEARN ============ -->
+<section class="scene" id="learn">
+  <div class="brand"><span class="wordmark">handoff</span><span class="tag">it gets quieter</span></div>
+  <div id="l-rule" style="position:absolute;left:150px;top:230px">
+    <div class="rule"><span class="mono">sender = partnerships@vendor.com</span><span class="arrow">→</span><span class="mono" style="color:var(--green)">archive</span><span style="color:var(--mute);font-size:22px;margin-left:8px">learned from your answer</span></div>
+  </div>
+  <div style="position:absolute;left:150px;top:400px" id="l-week">
+    <div class="sub" style="font-size:26px;margin-bottom:22px">questions it asked you</div>
+    <div class="week">
+      <div class="col"><div class="n">3</div><div class="stick" style="height:220px"></div><div class="day">Mon</div></div>
+      <div class="col"><div class="n">2</div><div class="stick" style="height:150px"></div><div class="day">Tue</div></div>
+      <div class="col"><div class="n">1</div><div class="stick" style="height:80px"></div><div class="day">Wed</div></div>
+      <div class="col"><div class="n">1</div><div class="stick" style="height:80px"></div><div class="day">Thu</div></div>
+      <div class="col"><div class="n" style="color:var(--green)">0</div><div class="stick" style="height:12px;background:var(--green)"></div><div class="day">Fri</div></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:1000px;top:330px;width:800px">
+    <h2 class="h" id="l-h" style="font-size:84px">Not louder.<br><span style="color:var(--green)">Quieter.</span></h2>
+    <p class="sub" id="l-s" style="margin-top:28px;font-size:30px">Each answer becomes a narrow rule — a sender, a domain, two keywords. The next run applies it silently. The week after, it asks about one fewer thing.</p>
+  </div>
+</section>
+
+<!-- ============ 9. CLOSE ============ -->
+<section class="scene" id="close">
+  <div id="c-orb" class="orb" style="--c:#2f855a;position:absolute;left:730px;top:150px;width:460px;height:460px"></div>
+  <div style="position:absolute;left:0;right:0;top:660px;text-align:center">
+    <div class="wordmark" id="c-wm" style="font-size:96px">handoff</div>
+    <div class="sub" id="c-tag" style="font-size:36px;margin-top:6px">Describe it. Hand it off. It runs.</div>
+    <div id="c-links" style="margin-top:40px;display:flex;gap:16px;justify-content:center">
+      <span class="pill">github.com/ZINKUNO/Handoff</span><span class="pill">handoff-eya.pages.dev</span><span class="pill solid">Multi-App AI Agent Hackathon · Sept 13, 2026</span>
+    </div>
+  </div>
+</section>
+
+<script>
+const anims = [];
+const EASE = 'cubic-bezier(.2,.7,.2,1)';
+function A(el, kf, o){ const a = el.animate(kf, Object.assign({fill:'both', easing:EASE}, o)); a.pause(); anims.push(a); return a; }
+function rise(el, at, d=650, dy=28){ return A(el, [{opacity:0, transform:`translateY(${dy}px)`},{opacity:1, transform:'none'}], {delay:at, duration:d}); }
+function pop(el, at, d=500){ return A(el, [{opacity:0, transform:'scale(.85)'},{opacity:1, transform:'scale(1)'}], {delay:at, duration:d, easing:'cubic-bezier(.2,1.4,.3,1)'}); }
+function draw(path, at, d=600){ path.style.strokeDasharray='1'; return A(path, [{strokeDashoffset:1},{strokeDashoffset:0}], {delay:at, duration:d, easing:'ease-out'}); }
+function tick(tile, at){ return A(tile.querySelector('.done'), [{transform:'scale(0)'},{transform:'scale(1)'}], {delay:at, duration:380, easing:'cubic-bezier(.2,1.6,.3,1)'}); }
+function glow(tile, at, color){ return A(tile, [{borderColor:'rgba(43,42,40,.14)', boxShadow:'0 18px 50px rgba(30,25,15,.12)'},{borderColor:color, boxShadow:`0 18px 60px ${color}55`}], {delay:at, duration:420}); }
+const $ = id => document.getElementById(id);
+
+// Slow ambient motion so a held frame never feels frozen.
+A(document.querySelector('.drift'), [{transform:'translate(0,0)'},{transform:'translate(60px,40px)'}], {duration:40000, iterations:Infinity, direction:'alternate', easing:'ease-in-out'});
+for (const o of document.querySelectorAll('.orb')) A(o, [{transform:'translateY(0) scale(1)'},{transform:'translateY(-18px) scale(1.03)'}], {duration:5200, iterations:Infinity, direction:'alternate', easing:'ease-in-out'});
+
+const SCENES = {
+  title(s, at, dur){
+    pop($('t-orb'), at+100, 900);
+    rise($('t-h1'), at+300, 800);
+    rise($('t-sub'), at+900);
+    rise($('t-pill'), at+1400);
+  },
+  problem(s, at, dur){
+    const rows = $('p-rows');
+    const froms = ['TechCrunch','Sam Okafor','GitHub','Your manager','Product Hunt','Priya Nair','Calendar','partnerships@vendor','LinkedIn','Notion','AWS Billing','Jira','Stripe','Zoom','Figma','Slack','Datadog','Substack','HR','Vercel'];
+    const subs = ['Daily: the AI funding round','Can you fix the export bug today?','CI failed on main','Do we have the Q3 numbers?','Top launches this week','Review my PR when you get a sec','Standup moved to 10:30','Strategic partnership — time sensitive','You appeared in 12 searches','Weekly digest','Your invoice is ready','3 issues assigned to you','Payout completed','Recording available','Comments on Onboarding v3','Unread in #eng','Alert resolved','New post','Updated PTO policy','Deployment succeeded'];
+    for (let i=0;i<40;i++){
+      const r = document.createElement('div'); r.className='mailrow';
+      r.innerHTML = `<div class="dot"></div><div class="from">${froms[i%20]}</div><div class="subj">${subs[i%20]}</div><div class="prev">08:0${i%10}</div>`;
+      rows.appendChild(r);
+      A(r, [{opacity:0, transform:'translateX(-16px)'},{opacity:1, transform:'none'}], {delay:at+400+i*70, duration:260});
+    }
+    rise($('p-inbox'), at+100, 700);
+    // count label swaps by stacking 41 labels is overkill — animate the number block instead
+    pop($('p-40'), at+3300, 700); rise($('p-40l'), at+3500);
+    pop($('p-3'), at+5200, 600); rise($('p-3l'), at+5400);
+    pop($('p-25'), at+7000, 600); rise($('p-25l'), at+7200);
+  },
+  sentence(s, at, dur){
+    pop($('s-orb'), at+100, 700);
+    A($('s-orb'), [{'--c':'#2b8a8a'},{'--c':'#6b5bd2'}], {delay:at+5200, duration:800});
+    A($('s-typed'), [{clipPath:'inset(0 100% 0 0)'},{clipPath:'inset(0 0% 0 0)'}], {delay:at+500, duration:5200, easing:'steps(90,end)'});
+    rise($('s-card'), at+6200, 800, 40);
+    const apps = $('s-apps').children;
+    for (let i=0;i<apps.length;i++) pop(apps[i], at+6900+i*140, 380);
+    A($('s-thr'), [{transform:'translateX(-140px)'},{transform:'none'}], {delay:at+7900, duration:900});
+  },
+  run(s, at, dur){
+    rise($('r-n1'), at+150); draw($('r-l1'), at+700); rise($('r-n2'), at+1000); draw($('r-l2'), at+1500); rise($('r-n3'), at+1800);
+    A($('r-n2'), [{borderColor:'var(--ink)'},{borderColor:'#2f855a'}], {delay:at+2300, duration:400});
+    const seq = [['r-t1','r-a1','#3b6fd4'],['r-t2','r-a2','#2b8a8a'],['r-t3','r-a3','#6b5bd2'],['r-t4','r-a4','#2b8a8a'],['r-t5','r-a5','#b7791f'],['r-t6','r-a6','#2b2a28']];
+    seq.forEach(([l,tId,c],i)=>{ const t0=at+2600+i*1350; draw($(l), t0, 500); pop($(tId), t0+250, 450); glow($(tId), t0+700, c); tick($(tId), t0+900); });
+    rise($('r-tally'), at+2600+6*1350+200, 700, 40);
+  },
+  gate(s, at, dur){
+    const bars = [...document.querySelectorAll('#g-bars .bar')];
+    bars.forEach((b,i)=>{ rise(b, at+200+i*260, 420, 14); const f=b.querySelector('.fill'); A(f, [{transform:'scaleX(0)'},{transform:`scaleX(${f.style.getPropertyValue('--w')})`}], {delay:at+700+i*260, duration:900, easing:'cubic-bezier(.2,.8,.2,1)'}); });
+    A($('g-thr'), [{opacity:0, transform:'scaleY(0)'},{opacity:.8, transform:'scaleY(1)'}], {delay:at+3200, duration:600});
+    rise($('g-thrl'), at+3500, 400, 8);
+    A($('g-low'), [{background:'transparent'},{background:'rgba(183,121,31,.10)'}], {delay:at+4200, duration:600});
+    pop($('g-wait'), at+4600, 500);
+    rise($('g-code'), at+6200, 800, 40);
+  },
+  phone(s, at, dur){
+    rise($('ph-h'), at+200, 700); rise($('ph-s'), at+700);
+    A($('ph'), [{opacity:0, transform:'translateY(80px) rotate(-2deg)'},{opacity:1, transform:'none'}], {delay:at+100, duration:900});
+    A($('ph-msg'), [{opacity:0, transform:'translateY(30px) scale(.96)'},{opacity:1, transform:'none'}], {delay:at+1400, duration:500});
+    [...$('ph-btns').children].forEach((b,i)=> rise(b, at+2000+i*120, 300, 12));
+    A($('ph-finger'), [{transform:'scale(0)', opacity:0},{transform:'scale(1)', opacity:1, offset:.35},{transform:'scale(.7)', opacity:1, offset:.6},{transform:'scale(1.6)', opacity:0}], {delay:at+4600, duration:1100});
+    A($('ph-b2'), [{background:'#1f2f3f', color:'#7fc4ff'},{background:'#2f855a', color:'#fff'}], {delay:at+5200, duration:250});
+    A($('ph-ok'), [{opacity:0, transform:'translateY(40px)'},{opacity:1, transform:'none'}], {delay:at+6000, duration:600});
+    pop($('ph-done'), at+6300, 600);
+  },
+  evidence(s, at, dur){
+    rise($('e-table'), at+150, 700, 40);
+    [...$('e-rows').children].forEach((r,i)=> A(r, [{opacity:0, transform:'translateX(-14px)'},{opacity:1, transform:'none'}], {delay:at+900+i*420, duration:380}));
+    rise($('e-notion'), at+5200, 700, 40);
+    rise($('e-line'), at+7600, 700);
+  },
+  learn(s, at, dur){
+    pop($('l-rule'), at+300, 700);
+    rise($('l-week'), at+2200, 600);
+    [...document.querySelectorAll('#l-week .stick')].forEach((st,i)=> A(st, [{transform:'scaleY(0)'},{transform:'scaleY(1)'}], {delay:at+2800+i*380, duration:700, easing:'cubic-bezier(.2,.8,.2,1)'}));
+    rise($('l-h'), at+4200, 800); rise($('l-s'), at+4900);
+  },
+  close(s, at, dur){
+    pop($('c-orb'), at+100, 1000);
+    rise($('c-wm'), at+600, 800); rise($('c-tag'), at+1100); rise($('c-links'), at+1700);
+  },
+};
+
+// timeline: [{id, start, dur}] in seconds. Scene opacity is one 4-keyframe animation so the
+// backwards fill can never leak a later scene over an earlier one.
+window.build = function(timeline){
+  for (const {id, start, dur} of timeline){
+    const s = $(id); const D = dur*1000, fi = Math.min(600, D*.2), fo = Math.min(500, D*.15);
+    A(s, [{opacity:0, offset:0},{opacity:1, offset:fi/D},{opacity:1, offset:1-fo/D},{opacity:0, offset:1}], {delay:start*1000, duration:D, easing:'linear'});
+    SCENES[id](s, start*1000, D);
+  }
+};
+window.seek = function(t){ const ms = Math.max(0, t*1000); for (const a of anims) a.currentTime = ms; };
+window.ready = document.fonts.ready.then(()=>true);
+</script>
+</body>
+</html>

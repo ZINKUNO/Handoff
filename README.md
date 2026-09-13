@@ -26,7 +26,7 @@
 > | **02 · External apps used (3+)** | [One morning, eight apps](#one-morning-eight-apps) — **eight**, not three: Gmail, Google Calendar, Linear, Notion, Airtable, Telegram, Slack, GitHub |
 > | **03 · Setup instructions** | [Run it yourself](#run-it-yourself) · full walkthrough in [docs/SETUP.md](docs/SETUP.md) · recording-day runbook in [docs/RECORDING.md](docs/RECORDING.md) |
 > | **04 · Reliability testing** | [Verification and cost](#verification-and-cost) — 313 automated tests, `handoff doctor` makes a real call against every credential, an Airtable log of every decision with its confidence |
-> | **05 · Demo video (≤2:00)** | `ADD LINK BEFORE SUBMITTING` · full word-for-word script in [docs/VIDEO_SCRIPT.md](docs/VIDEO_SCRIPT.md) |
+> | **05 · Demo video (≤2:00)** | [docs/video/handoff-demo-2min.mp4](docs/video/handoff-demo-2min.mp4) (1:54, 1080p) · `ADD HOSTED LINK BEFORE SUBMITTING` · script in [docs/VIDEO_SCRIPT.md](docs/VIDEO_SCRIPT.md) |
 >
 > Judged on technical execution (30%), reliability & evaluation (25%), usefulness (20%), originality (15%) and demo clarity (10%).
 
@@ -45,7 +45,8 @@ every week.
 | **Live site and guides** | <https://handoff-eya.pages.dev> · [docs](https://handoff-eya.pages.dev/docs) |
 | **Pitch** | [deck (PDF)](docs/pitch/deck.pdf) · [deck (PPTX)](docs/pitch/deck.pptx) · [speaker script](docs/pitch/script.md) |
 | **Architecture** | [diagram](docs/architecture.png) · [editable Excalidraw](docs/architecture.excalidraw) · [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| **Demo video** | `ADD BEFORE SUBMITTING` · storyboards: [docs/DEMO.md](docs/DEMO.md) (5:00) · [docs/VIDEO_SCRIPT.md](docs/VIDEO_SCRIPT.md) (2:00, full voiceover) · setup-to-record runbook in [docs/RECORDING.md](docs/RECORDING.md) |
+| **Demo video** | [handoff-demo-2min.mp4](docs/video/handoff-demo-2min.mp4) — the two-minute submission cut · script in [docs/VIDEO_SCRIPT.md](docs/VIDEO_SCRIPT.md) · runbook in [docs/RECORDING.md](docs/RECORDING.md) |
+| **Videos** | [docs/video/](docs/video/) — the two-minute cut, a narrated pitch over the deck with live app footage (6:21), and a 100-second animated explainer of how it works; how they were made is in [docs/video/README.md](docs/video/README.md) |
 
 ---
 
