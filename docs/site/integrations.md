@@ -1,6 +1,6 @@
 # Integrations
 
-Handoff acts through Gmail, Linear, Slack and GitHub. A credential is entered once — in `.env` or on the Credentials page — and every check that says it is connected is a real call, not a test that a variable is set. This page is the setup for each service and how to verify it.
+Handoff acts through Gmail, Linear, Slack, GitHub, Notion, Telegram, Airtable and Google Calendar. A credential is entered once — in `.env` or on the Credentials page — and every check that says it is connected is a real call, not a test that a variable is set. This page is the setup for each service and how to verify it.
 
 ## How credentials work
 
@@ -68,6 +68,69 @@ Handoff uses GitHub's official remote MCP server.
 3. `GITHUB_TOKEN=github_pat_...`
 4. `handoff doctor github`.
 
+## Notion
+
+Where a run writes itself down: what it handled alone, what it asked about, what you decided. Notion publishes a remote MCP server, but it is OAuth-only — a browser round-trip a 6am cron run cannot complete — so Handoff calls the REST API with one integration secret instead.
+
+1. <https://www.notion.so/my-integrations> → **New integration** → copy the **Internal Integration Secret** (`ntn_...`).
+2. **Share the destination with it.** Open the page or database → **`...`** → **Connections** → add the integration. This is the step everyone skips, and skipping it is why a valid key returns *"Could not find page"*: the integration can only see what it was invited to. `handoff doctor notion` says exactly that when it happens.
+3. The id is the 32 hex characters in the URL; dashes are optional, Handoff normalises both. A **database** is worth the extra minute over a page — a week of runs becomes a table you can sort by confidence.
+
+```bash
+NOTION_API_KEY=ntn_...
+NOTION_DATABASE_ID=1a2b3c4d...        # or NOTION_PARENT_PAGE_ID
+```
+
+4. `handoff doctor notion` checks the key **and** that the destination is reachable, because the first can pass while the second fails.
+
+## Telegram
+
+The decision gate on a phone. When a run stops on something it cannot call, the question arrives with the answers as buttons — *File a ticket*, *Archive*, *Draft a reply*, *Leave it* — and one tap resumes the run through the same `submit_decision` path the browser uses. The learner records the rule either way.
+
+1. Message **@BotFather** → `/newbot` → copy the token.
+2. `TELEGRAM_BOT_TOKEN=123456789:AA...`
+3. **Send your new bot any message.** A bot cannot open a conversation with you, which is the only reason this step exists.
+4. `handoff doctor telegram` reads the pending update and prints the line to paste: `TELEGRAM_CHAT_ID=987654321`.
+5. Run it once more — it sends a real message, because a token can be valid while the bot has never been started by that chat.
+
+```bash
+NOTIFY_CHANNEL=telegram      # route waiting decisions there
+handoff answers listen       # take the taps; leave it running
+```
+
+Polling, not a webhook: `getUpdates` costs one idle connection and works from a laptop behind NAT, where a webhook needs a public HTTPS URL before anything works at all. The poll offset is persisted, so a restart does not re-answer yesterday's decisions, and a tap on an already-resolved question is acknowledged rather than applied twice.
+
+## Airtable
+
+Every decision as a row — the item, the action, the confidence at the time, and whether the agent or a human decided it. This is what makes the confidence gate measurable instead of asserted: a week of rows answers *how often does it ask?* and *when it acted alone, was it right?*
+
+1. Create a base with a table named **Decisions** and the columns `Item`, `Action`, `Confidence`, `Decided by`, `Reasoning`, `Workflow`, `Run`, `At`.
+2. <https://airtable.com/create/tokens> → scopes `data.records:write` and `schema.bases:read`, scoped to that one base.
+3. The base id is the `app...` in its URL.
+
+```bash
+AIRTABLE_API_KEY=pat...
+AIRTABLE_BASE_ID=app...
+AIRTABLE_TABLE=Decisions
+```
+
+4. `handoff doctor airtable` names any column you are missing. A renamed column costs that one value, not the run — unknown fields are dropped against the live schema before writing.
+
+## Google Calendar
+
+Triage that only files tickets does half the job; the other half is time. A run can read the day, find the gaps, and book the work it just filed.
+
+**It reuses the Google project you already made for Gmail** — one more API, one more scope, no second console project. The scope is `calendar.events`: read and write events, nothing else.
+
+1. Google Cloud console → **APIs & Services → Library** → enable the **Google Calendar API** on the same project.
+2. **OAuth consent screen → Data access** → add `.../auth/calendar.events`, and keep yourself under **Audience → Test users**.
+3. `handoff credentials gcal` — a browser opens once; a refreshing token is written to `~/.handoff/google-calendar.json`. Nothing to paste.
+4. `handoff doctor gcal` prints the calendar name and timezone.
+
+```bash
+GOOGLE_CALENDAR_ID=primary    # the calendar named after your email address
+```
+
 ## Web fetch, browser and code
 
 Three more integrations need no account:
@@ -95,7 +158,7 @@ Handoff doctor — provider: groq
                    → The bot was never invited: /invite @YourApp
 ```
 
-`PASS` means the credential works right now. `SKIP` means nothing is configured for that check — not an error. `FAIL` always comes with the fix. The checks, by name: `groq`, `anthropic`, `bedrock`, `speech`, `gmail`, `linear`, `slack`, `github`, `dynamodb`, `memory`. Run a subset with `handoff doctor gmail slack`.
+`PASS` means the credential works right now. `SKIP` means nothing is configured for that check — not an error. `FAIL` always comes with the fix. The checks, by name: `groq`, `anthropic`, `bedrock`, `speech`, `gmail`, `linear`, `slack`, `github`, `notion`, `telegram`, `airtable`, `gcal`, `dynamodb`, `memory`. Run a subset with `handoff doctor gmail slack`.
 
 The **Test** button beside each row on the Credentials page runs the same check, so *connected* in the UI means exactly what a `PASS` means in the terminal.
 
