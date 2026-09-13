@@ -24,7 +24,10 @@ def register(sub: argparse._SubParsersAction) -> None:
     c.add_parser("list", help="Every provider and whether it is connected (the default)")
 
     p_set = c.add_parser("set", help="Store a credential, read hidden from the terminal")
-    p_set.add_argument("provider", help="groq, anthropic, linear, slack, slack_webhook, github")
+    p_set.add_argument(
+        "provider",
+        help="groq, anthropic, linear, slack, slack_webhook, github, notion, telegram, airtable",
+    )
     p_set.add_argument("--from-env", default="", metavar="VAR", help="Take the value from this variable")
     p_set.add_argument("--label", default="")
 
@@ -35,6 +38,7 @@ def register(sub: argparse._SubParsersAction) -> None:
     p_forget.add_argument("provider")
 
     c.add_parser("gmail", help="Sign in to Gmail in the browser (the MCP server's own OAuth)")
+    c.add_parser("gcal", help="Sign in to Google Calendar in the browser (reuses the Gmail OAuth client)")
 
 
 def _row(cred) -> dict:
@@ -74,8 +78,10 @@ def handle(args: argparse.Namespace) -> int:
         spec = creds.provider(args.provider)
         if spec is None:
             raise KeyError(f"Unknown provider '{args.provider}' — one of {', '.join(creds.PROVIDERS)}")
-        if args.provider == "gmail":
-            raise ValueError("Gmail has no key to paste; run `handoff credentials gmail` to sign in")
+        if args.provider in ("gmail", "gcal"):
+            raise ValueError(
+                f"{spec.label} has no key to paste; run `handoff credentials {args.provider}` to sign in"
+            )
         if args.from_env:
             secret = os.environ.get(args.from_env, "")
             if not secret:
@@ -102,9 +108,11 @@ def handle(args: argparse.Namespace) -> int:
         store = get_store()
         stored = [c for c in store.list_credentials(_ui.workspace()) if c.secret]
         if args.provider:
-            if args.provider == "gmail":
-                result = doctor.check_gmail()
-                _ui.emit(result, lambda: _ui.kv_table("Gmail", result))
+            # The two OAuth connections store no secret, so there is nothing
+            # in the credential store to verify — ask doctor directly.
+            if args.provider in ("gmail", "gcal"):
+                result = doctor.CHECKS[args.provider]()
+                _ui.emit(result, lambda: _ui.kv_table(result["name"], result))
                 return 0 if result["status"] == doctor.OK else 1
             stored = [c for c in stored if c.provider == args.provider]
             if not stored:
@@ -142,6 +150,22 @@ def handle(args: argparse.Namespace) -> int:
                 _ui.dim("already signed in; signing in again refreshes the token")
             _ui.dim("opening the Google consent screen in your browser…")
         result = creds.run_gmail_auth()
+        if _ui.json_mode():
+            _ui.print_json(result)
+        elif result.get("ok"):
+            _ui.ok(result.get("message", "signed in"))
+        else:
+            _ui.fail(result.get("error", "sign-in failed"))
+        return 0 if result.get("ok") else 1
+
+    if action == "gcal":
+        from handoff.tools import gcal
+
+        if not _ui.json_mode():
+            if gcal.configured():
+                _ui.dim("already signed in; signing in again refreshes the token")
+            _ui.dim("opening the Google consent screen in your browser…")
+        result = gcal.connect()
         if _ui.json_mode():
             _ui.print_json(result)
         elif result.get("ok"):
