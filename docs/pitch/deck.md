@@ -36,7 +36,36 @@ style: |
 
 A voice-first agent on the **Strands Agents SDK** that runs your recurring chores on AWS and asks you only when it genuinely cannot decide.
 
-<span class="pill">Autonomous workflows · human in the loop</span> <span class="pill">Bedrock · AgentCore · Transcribe · Polly</span> <span class="pill">MIT</span>
+<span class="pill">Multi-App AI Agent Hackathon · Sept 13, 2026</span> <span class="pill">8 external apps</span> <span class="pill">Bedrock · AgentCore · Transcribe · Polly</span> <span class="pill">MIT</span>
+
+---
+
+## Built for the Multi-App AI Agent Hackathon
+
+**Virtual · September 13, 2026** — hosted by **Lemma** and **Comma Capital**, judged by the founders of **Arga Labs** and **Userlens**.
+
+The brief: build one useful, multi-step AI agent, connect it to at least three external apps, and show how you know it works.
+
+<div class="cols">
+<div>
+
+**The brief, met**
+- One agent, six-plus steps per run
+- **Eight** external apps, not three — Gmail, Google Calendar, Linear, Slack, GitHub, Notion, Telegram, Airtable
+- Reliability shown as a table, not a claim: 313 automated tests, `handoff doctor` making a real call per credential, every decision logged to Airtable with its confidence
+
+</div>
+<div>
+
+**Judged on**
+- Technical execution — 30%
+- Reliability & evaluation — 25%
+- Usefulness — 20%
+- Originality — 15%
+- Demo clarity — 10%
+
+</div>
+</div>
 
 ---
 
@@ -140,7 +169,7 @@ Your answer becomes a **narrow rule**: exact sender, whole domain, or two distin
 | `BeforeToolCallEvent` + `event.interrupt()` | the gate; resume returns the human's answer |
 | `BeforeInvocationEvent` / `AfterInvocationEvent` | a narrator per node — the orb draws the Graph live |
 | `SessionRepository` + `RepositorySessionManager` | chats persisted in DynamoDB; terminal and browser share one session |
-| `@tool` (16 of them) + `MCPClient` | Gmail, Linear, Slack, GitHub, web |
+| `@tool`s + `MCPClient` | Gmail, Google Calendar, Linear, Slack, GitHub, Notion, Telegram, Airtable, web |
 | Context variables into tools | `activate_workflow` and `start_run` reach the page |
 
 ---
@@ -209,4 +238,4 @@ The hard question for a background agent is *when may it act alone?* Everything 
 
 # It does the boring part.<br>And it knows when to stop and ask.
 
-<p class="muted">github.com/ZINKUNO/Handoff · handoff-eya.pages.dev · MIT</p>
+<p class="muted">Multi-App AI Agent Hackathon · github.com/ZINKUNO/Handoff · handoff-eya.pages.dev · MIT</p>
