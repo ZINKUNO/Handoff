@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 #
 # AgentCore Runtime requires linux/arm64, which buildx supplies at build time:
 #   docker buildx build --platform linux/arm64 -t handoff:latest .
