@@ -230,6 +230,105 @@ where a webhook returns 200 for a channel nobody reads.
 3. `GITHUB_TOKEN=github_pat_...`
 4. `python -m handoff.cli doctor github`
 
+### Notion — where a run writes itself down
+
+Two minutes, and the only step people skip is the second one.
+
+1. <https://www.notion.so/my-integrations> → **New integration** → name it
+   *Handoff* → copy the **Internal Integration Secret** (`ntn_...`)
+2. **Share the destination with it.** Open the page or database you want
+   written to → **`...`** (top right) → **Connections** → add *Handoff*.
+   Without this, a perfectly valid key returns *"Could not find page"* — the
+   integration cannot see anything it was not invited to. `handoff doctor
+   notion` says so in as many words when it happens.
+3. Copy the id out of the URL — the 32 hex characters after the last `/` and
+   before any `?`. A **database** is worth the extra minute over a page: a
+   week of runs becomes a table you can sort by confidence.
+
+```bash
+NOTION_API_KEY=ntn_...
+NOTION_DATABASE_ID=1a2b3c4d...        # or NOTION_PARENT_PAGE_ID
+```
+
+4. `python -m handoff.cli doctor notion` — checks the key *and* that the
+   destination is reachable, because the first can pass while the second fails.
+
+### Telegram — the decision gate, on your phone
+
+This is the one worth setting up. When a run stops on something it cannot
+call, the question arrives as a message with the answers as buttons, and one
+tap resumes the run.
+
+1. Open Telegram, message **@BotFather**, send `/newbot`, answer the two
+   questions, copy the token (`123456789:AA...`)
+2. `TELEGRAM_BOT_TOKEN=123456789:AA...` in `.env`
+3. **Send your new bot any message** — say "hi". A bot cannot start a
+   conversation with you, which is why this step exists.
+4. `python -m handoff.cli doctor telegram` — it reads the pending update and
+   prints the line to paste:
+
+```bash
+TELEGRAM_CHAT_ID=987654321
+```
+
+5. Run `python -m handoff.cli doctor telegram` again — it sends a real message,
+   because a token can be valid while the bot has never been started.
+
+To route decisions there and take the taps:
+
+```bash
+NOTIFY_CHANNEL=telegram              # in .env
+
+python -m handoff.cli answers listen # leave running beside the scheduler
+```
+
+### Airtable — the decision log
+
+Every action, its confidence, and whether the agent or a human decided it.
+This is what turns "the gate is well calibrated" from a claim into a table.
+
+1. Create a base with a table named **Decisions** and these columns:
+   `Item` (text), `Action` (text), `Confidence` (number, 3 decimals),
+   `Decided by` (text), `Reasoning` (long text), `Workflow` (text),
+   `Run` (text), `At` (text)
+2. <https://airtable.com/create/tokens> → **Create token** → scopes
+   `data.records:write` and `schema.bases:read` → grant access to that one base
+3. The base id is the `app...` in the base's URL
+
+```bash
+AIRTABLE_API_KEY=pat...
+AIRTABLE_BASE_ID=app...
+AIRTABLE_TABLE=Decisions
+```
+
+4. `python -m handoff.cli doctor airtable` — names any column you are missing.
+   A missing column costs that one value, not the run.
+
+### Google Calendar — booking time for what it files
+
+It reuses the Google Cloud project you already made for Gmail. There is no
+second console project, only one more API and one more scope.
+
+1. Google Cloud Console → **APIs & Services** → **Library** → enable
+   **Google Calendar API** on the same project as Gmail
+2. **APIs & Services** → **OAuth consent screen** → **Data access** → add the
+   scope `.../auth/calendar.events`, and make sure your own address is listed
+   under **Audience → Test users**
+3. Sign in once:
+
+```bash
+python -m handoff.cli credentials gcal
+```
+
+   A browser opens, you consent, and a refreshing token is written to
+   `~/.handoff/google-calendar.json`. Nothing to paste.
+
+4. `python -m handoff.cli doctor gcal` — prints the calendar name and timezone
+
+```bash
+GOOGLE_CALENDAR_ID=primary    # the calendar named after your email
+```
+
 ---
 
 ## Step 4 — Make it run on its own
