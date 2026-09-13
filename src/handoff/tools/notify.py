@@ -36,6 +36,25 @@ def _post_slack(message: str, target: str = "") -> bool:
     return True
 
 
+def _send_telegram(message: str, buttons: list[tuple[str, str]] | None = None) -> bool:
+    """Send to Telegram. Buttons turn a question into something tappable."""
+    from handoff.tools import telegram
+
+    if not telegram.configured():
+        return False
+
+    try:
+        result = telegram.send(message, buttons=buttons)
+    except Exception as exc:  # pragma: no cover - network
+        print(f"[handoff] Telegram notify failed: {exc}")
+        return False
+
+    if not result.get("ok"):
+        print(f"[handoff] Telegram refused the message: {result.get('error')}")
+        return False
+    return True
+
+
 def _publish_sns(message: str, subject: str = "Handoff") -> bool:
     if not config.SNS_TOPIC_ARN:
         return False
@@ -52,18 +71,28 @@ def _publish_sns(message: str, subject: str = "Handoff") -> bool:
 
 
 def send_notification(
-    message: str, channel: str = "", target: str = "", subject: str = "Handoff"
+    message: str,
+    channel: str = "",
+    target: str = "",
+    subject: str = "Handoff",
+    buttons: list[tuple[str, str]] | None = None,
 ) -> dict[str, Any]:
     """Send one notification through the configured channel.
 
     Falls back to stdout rather than failing the run — a workflow that
     completed successfully should not be marked failed because Slack was down.
+
+    ``buttons`` are honoured by channels that can render them (Telegram) and
+    ignored by the ones that cannot, so a caller never has to branch on which
+    channel is configured.
     """
     channel = channel or config.NOTIFY_CHANNEL
 
     sent = False
     if channel == "slack":
         sent = _post_slack(message, target)
+    elif channel == "telegram":
+        sent = _send_telegram(message, buttons)
     elif channel in ("sns", "email", "ses"):
         sent = _publish_sns(message, subject)
 
@@ -79,8 +108,8 @@ def notify_user(message: str, channel: str = "", target: str = "") -> dict:
 
     Args:
         message: What to say. Keep it to a line or two.
-        channel: "slack", "sns", or "console". Defaults to the workflow's
-            configured channel.
+        channel: "slack", "telegram", "sns", or "console". Defaults to the
+            workflow's configured channel.
         target: Channel name or webhook override, if the channel needs one.
 
     Returns:
@@ -106,9 +135,36 @@ def notify_decision_needed(payload: InterruptPayload) -> dict[str, Any]:
         f"({confidence:.0%} confidence)\n"
         f"Decide: {url}"
     )
-    result = send_notification(message, subject="Handoff — decision needed")
+    result = send_notification(
+        message,
+        subject="Handoff — decision needed",
+        buttons=_decision_buttons(payload),
+    )
     result["url"] = url
     return result
+
+
+#: Option keys are what the resume path expects; these are what a human reads.
+_OPTION_LABELS = {
+    "approve_suggested": "Do what you suggested",
+    "file_ticket": "File a ticket",
+    "archive": "Archive it",
+    "draft_reply": "Draft a reply",
+    "skip": "Leave it",
+}
+
+
+def _decision_buttons(payload: InterruptPayload) -> list[tuple[str, str]]:
+    """One tappable answer per option, carrying the interrupt id back.
+
+    Telegram caps callback data at 64 bytes, which is why the id and the
+    option key travel rather than the whole payload.
+    """
+    return [
+        (_OPTION_LABELS.get(option, option.replace("_", " ").capitalize()),
+         f"{payload.interrupt_id}:{option}")
+        for option in payload.options[:6]
+    ]
 
 
 def notify_batch(payloads: list[InterruptPayload]) -> dict[str, Any]:
