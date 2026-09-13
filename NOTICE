@@ -37,6 +37,20 @@ from its own distribution and remains under its own licence.
   Markdown                  BSD-3-Clause  (the guides)
   amazon-transcribe         Apache-2.0    (optional: streaming speech on AWS)
   sounddevice               MIT           (optional: microphone from the terminal and the desktop window)
+  google-auth               Apache-2.0    (optional: Google Calendar)
+  google-auth-oauthlib      Apache-2.0    (optional: Google Calendar)
+
+Services Handoff talks to over their own public APIs. No SDK is vendored and
+no code of theirs is included; each is reached with httpx and a credential the
+user supplies.
+
+  Gmail, Google Calendar    Google APIs
+  Linear                    GraphQL API
+  Slack                     Web API
+  GitHub                    REST API + remote MCP server
+  Notion                    REST API (Notion-Version 2022-06-28)
+  Telegram                  Bot API
+  Airtable                  REST API
 
 Served to the browser from a CDN, not redistributed here:
 
