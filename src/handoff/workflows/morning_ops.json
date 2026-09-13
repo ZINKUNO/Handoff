@@ -1,0 +1,89 @@
+{
+  "workflow_id": "morning-ops-run",
+  "name": "Morning Operations Run",
+  "description": "Before I start: read the unread mail, file the real asks in Linear, book time on my calendar to actually do them, write the whole run up in Notion, log every decision to Airtable for review, and ask me on Telegram about anything you genuinely can't call.",
+  "status": "active",
+  "trigger": {
+    "type": "cron",
+    "schedule": "0 8 * * 1-5",
+    "timezone": "Asia/Kolkata"
+  },
+  "mcp_tools": ["gmail", "linear", "gcal", "notion", "airtable", "telegram"],
+  "steps": [
+    {
+      "id": "recall",
+      "action": "memory.recall_preferences",
+      "params": { "preference_key": "morning_ops_rules" }
+    },
+    {
+      "id": "fetch_emails",
+      "action": "gmail.search_threads",
+      "params": { "query": "is:unread newer_than:16h", "max_results": 20 }
+    },
+    {
+      "id": "read_calendar",
+      "action": "gcal.list_events",
+      "params": { "hours_ahead": 12 }
+    },
+    {
+      "id": "classify",
+      "action": "llm_classify",
+      "input_from": "fetch_emails",
+      "categories": ["teammate_request", "newsletter", "manager", "automated", "ambiguous"]
+    },
+    {
+      "id": "auto_actions",
+      "rules": [
+        {
+          "category": "teammate_request",
+          "action": "linear.create_issue",
+          "auto": true,
+          "params": { "labels": ["inbox"] },
+          "then": {
+            "action": "gcal.create_event",
+            "params": { "minutes": 30, "summary": "Work: {issue_title}" }
+          }
+        },
+        { "category": "newsletter", "action": "gmail.archive", "auto": true },
+        { "category": "manager", "action": "gmail.create_draft", "auto": true },
+        {
+          "category": "automated",
+          "action": "linear.create_issue",
+          "auto": true,
+          "params": { "labels": ["automated"] }
+        }
+      ]
+    },
+    {
+      "id": "log_every_decision",
+      "action": "airtable.log_decision",
+      "for_each": "decision",
+      "note": "Written for actions taken alone and for answers a human gave, so the confidence gate can be measured rather than asserted."
+    },
+    {
+      "id": "human_gate",
+      "category": "ambiguous",
+      "action": "interrupt",
+      "present": ["email_summary", "sender", "suggested_action", "reasoning", "confidence"],
+      "options": ["file_ticket", "archive", "draft_reply", "skip"],
+      "ask_on": "telegram"
+    },
+    {
+      "id": "write_up",
+      "action": "notion.create_page",
+      "params": {
+        "title": "Morning run — {date}",
+        "body": "What I handled alone, what I asked about, what you decided, and the tickets and calendar blocks that came out of it."
+      }
+    }
+  ],
+  "completion": {
+    "notify": "telegram",
+    "message": "Morning run done. {auto_count} handled on my own, {interrupt_count} came to you, {memory_count} from rules you set earlier. Write-up is in Notion."
+  },
+  "memory": {
+    "learn_from_decisions": true,
+    "preference_key": "morning_ops_rules"
+  },
+  "confidence_threshold": 0.7
+}
