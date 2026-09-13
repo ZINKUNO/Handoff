@@ -34,6 +34,22 @@ TEMPLATES: list[dict[str, Any]] = [
         "integrations": ["gmail", "linear", "slack"],
     },
     {
+        "slug": "morning-ops",
+        "name": "Morning Ops",
+        "tagline": "One run, across everything you use.",
+        "description": (
+            "Reads the mail and the day's calendar, files the real asks in "
+            "Linear, books time to actually do them, logs every decision for "
+            "review, writes the run up in Notion, and asks you on your phone "
+            "about the one thing it can't call. The widest template: it shows "
+            "what the gate is for when an agent can touch this much."
+        ),
+        "icon": "◉",
+        "workflows": ["morning-ops-run"],
+        "skills": ["sender-trust", "escalation-style", "irreversibility"],
+        "integrations": ["gmail", "linear", "gcal", "notion", "airtable", "telegram"],
+    },
+    {
         "slug": "competitive-intel",
         "name": "Competitive Intel",
         "tagline": "Watch a competitor's pricing, weekly.",
