@@ -1,8 +1,11 @@
 Handoff
-Copyright 2026 The Handoff Authors
+Copyright (c) 2026 ZINKUNO
 
-Licensed under the Apache License, Version 2.0.
-See the LICENSE file for the full terms.
+Licensed under the MIT License. See the LICENSE file for the full terms.
+
+This file is attribution, not a licence. It records what Handoff is built on
+and what it borrowed from, so that anyone redistributing it can honour the
+terms of those projects as well as this one.
 
 ------------------------------------------------------------------------
 Third-party dependencies
