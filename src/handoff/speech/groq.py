@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Hearing and speaking on Groq: Whisper in, Orpheus out.
 
 Behind the same key that runs the agents on the Groq provider. Orpheus needs

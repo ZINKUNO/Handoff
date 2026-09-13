@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Exposing a host runtime's authenticated tools to a Strands agent.
 
 Handoff can run embedded in another agent runtime — one that already holds the

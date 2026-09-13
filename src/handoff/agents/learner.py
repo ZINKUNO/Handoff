@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The Learning Agent — why the second run interrupts less than the first.
 
 Every time a human resolves an interrupt, they have told us something we didn't

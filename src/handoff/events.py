@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """A live feed of what a run is doing, for people watching it.
 
 The audit log is the record; this is the window. Tools and the runner emit

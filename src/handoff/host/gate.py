@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Answering a Strands interrupt through a host runtime's human-input channel.
 
 A host that embeds Handoff usually already knows how to put a question in

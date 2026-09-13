@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Running a workflow, pausing it on a human decision, and picking it back up.
 
 The interesting property here is that a paused run is not a special state

@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  *
  * Two things happen here: watching a run as it works (server-sent events),
  * and talking to Handoff — speaking instead of typing, and having decisions

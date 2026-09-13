@@ -1,4 +1,4 @@
-// Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
 //
 // The orb: a volumetric sphere rendered in WebGL2, whose colour, motion and
 // breathing follow what Handoff is doing. The shader is adapted from DORA's

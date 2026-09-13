@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  * The Talk page: the orb, what was said, and the work it produced. */
 
 .orb-page { display: flex; flex-direction: column; min-block-size: 100%; overflow: auto; scrollbar-width: none; padding-block-end: var(--size-16); }

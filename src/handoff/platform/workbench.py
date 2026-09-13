@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The agent workbench: run any agent on a prompt and watch it work.
 
 The same narration the chat uses — a tool_start/tool_end pair per call and

@@ -1,4 +1,4 @@
-// Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
 // Runs on the audio thread. Takes whatever rate the microphone gives (44.1 or
 // 48 kHz), downsamples to 16 kHz mono Int16, and posts 4096-sample buffers to
 // the page. That is exactly what Amazon Transcribe streaming wants, so the

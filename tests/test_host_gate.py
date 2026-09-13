@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The seam between a Strands interrupt and a host runtime's human-input channel.
 
 If this breaks, a run pauses somewhere nobody is looking.

@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Turning a workflow's cron trigger into a real EventBridge schedule.
 
 Local runs don't need this — ``scripts/run_local.py`` fires a workflow

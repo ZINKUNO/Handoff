@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Running Handoff inside someone else's agent runtime.
 
 Handoff has two front ends. Its own — the web UI and the desktop window —

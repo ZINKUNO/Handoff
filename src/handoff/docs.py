@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The user-facing docs, rendered from ``docs/site/*.md``.
 
 One source, two readers: the static site (``site/build.py``) and the ``/docs``

@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Tool servers as a catalogue you can inspect and poke.
 
 A server row in the store describes how to reach it; this module turns that

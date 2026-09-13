@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The two levers a spoken turn needs that a typed one does not.
 
 Typed chat shows a config and a "Save and switch on" button; the person

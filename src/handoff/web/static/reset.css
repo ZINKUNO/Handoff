@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  * Preflight. Removes the user-agent opinions so the design system is the only
  * one in the room. */
 *, ::before, ::after { box-sizing: border-box; border: 0 solid currentColor; }

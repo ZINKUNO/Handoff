@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """AgentCore Browser access for workflows that must read a real web page.
 
 Only used when ``USE_MOCK_TOOLS=false``. Snapshots are kept in the local state

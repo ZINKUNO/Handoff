@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The DynamoDB backend, without DynamoDB.
 
 The single-table layout exists because the obvious alternative is broken in a

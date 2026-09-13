@@ -1,4 +1,4 @@
-// Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
 // Paints a streaming reply: text as it arrives, a card per tool call, the
 // workflow config if one was produced, and any decisions the turn left waiting.
 

@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """``handoff doctor`` — does each credential actually work?
 
 Every check makes a real call. "The variable is set" is not the same fact as

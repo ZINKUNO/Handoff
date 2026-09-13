@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Bedrock AgentCore Runtime entrypoint.
 
 One handler, four kinds of event. AgentCore gives Handoff what it actually

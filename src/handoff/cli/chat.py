@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """`handoff ask`, `chat` and `build` — the workspace assistant in a terminal.
 
 Same ``ChatService`` and the same session repository as the browser, so a

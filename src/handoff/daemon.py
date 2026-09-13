@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The scheduler that makes Handoff autonomous rather than a button.
 
 Everything else in the product is about what happens *during* a run. This is

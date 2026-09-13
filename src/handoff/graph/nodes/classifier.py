@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Classifier node — where the model actually earns its keep.
 
 ``classify_email`` does not classify anything itself, and that is deliberate.

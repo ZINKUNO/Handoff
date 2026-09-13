@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The Builder Agent — turns a sentence into a workflow you can read.
 
 This is the conversational half of Handoff. The user describes a recurring

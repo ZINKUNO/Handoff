@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """One console for every subcommand, and the ``--json`` switch they all obey.
 
 Human output goes through ``rich`` so tables line up and long ids don't

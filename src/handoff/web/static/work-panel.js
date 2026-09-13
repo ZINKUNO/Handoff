@@ -1,4 +1,4 @@
-// Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+// Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
 //
 // The work panel under the orb: the workspace card a sentence became, the
 // run graph as it fills in, and any decision the run stops on.

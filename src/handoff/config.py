@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Handoff configuration — every setting is read from the environment.
 
 Nothing in here reaches out to AWS at import time. ``get_model()`` is the only

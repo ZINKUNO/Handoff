@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Narrate an agent's work onto the events bus, as it happens.
 
 One hook, bound to any Strands ``Agent``, turns four SDK events into four

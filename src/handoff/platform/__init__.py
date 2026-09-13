@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The platform layer: everything around a single workflow run.
 
 A workflow that runs once is a script. What makes it a platform is the rest:

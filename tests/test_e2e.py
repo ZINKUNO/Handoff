@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The whole loop: run, pause, decide, resume, learn, run again quieter.
 
 This is the test that would catch a regression in the product's actual promise

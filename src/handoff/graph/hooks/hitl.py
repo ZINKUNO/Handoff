@@ -1,8 +1,8 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """The human-in-the-loop decision gate.
 
-This is the centre of Handoff. The hackathon brief asks for an agent that
+This is the centre of Handoff. The whole product promises an agent that
 "runs autonomously and only surfaces when there's a real decision to make" —
 this module is that sentence expressed as code.
 

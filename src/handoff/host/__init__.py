@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Embedding Handoff in another agent runtime.
 
 See :mod:`handoff.host.embed` for the host-context protocol — it is two

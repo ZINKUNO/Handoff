@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Builds the Strands Graph a workflow config describes.
 
 **Why a Graph and not a Swarm.** A workflow is a fixed, auditable sequence:

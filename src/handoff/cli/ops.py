@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Operating Handoff: serve, desktop, share, docs, deploy, doctor, completion, version.
 
 None of these need the store set up first — `doctor` in particular must

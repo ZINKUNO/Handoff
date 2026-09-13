@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """`handoff credentials` — connect services without a secret ever hitting the screen.
 
 Values are read with ``getpass`` or taken from an environment variable you

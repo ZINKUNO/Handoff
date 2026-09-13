@@ -1,4 +1,4 @@
-/* Copyright 2026 The Handoff Authors — SPDX-License-Identifier: Apache-2.0
+/* Copyright (c) 2026 ZINKUNO — SPDX-License-Identifier: MIT
  * The docs inside the app: three columns, readable prose, copyable code. */
 .doc-layout { display: grid; grid-template-columns: 200px minmax(0, 1fr) 200px; gap: var(--size-8); padding: var(--size-2) var(--size-6) var(--size-12); align-items: start; }
 .doc-nav, .doc-outline { position: sticky; top: var(--size-4); font-size: var(--font-size-3); }

@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """`handoff` on the command line: everything the web UI does, from a terminal.
 
 One argparse tree, built from a module per command group. Each module

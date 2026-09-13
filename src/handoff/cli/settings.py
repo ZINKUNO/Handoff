@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """`handoff settings` and `handoff usage` — the dials, and what the agents cost.
 
 ``settings show`` is a redacted view on purpose. Which provider, which

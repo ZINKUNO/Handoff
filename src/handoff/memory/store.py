@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Learned preferences — the reason the agent asks fewer questions over time.
 
 Backed by AgentCore Memory when ``USE_AGENTCORE_MEMORY=true`` and a memory id

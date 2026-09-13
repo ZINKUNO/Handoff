@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Executor node tools — how the workflow reaches the outside world.
 
 Every function here has two bodies: a synthetic one for the demo and the test

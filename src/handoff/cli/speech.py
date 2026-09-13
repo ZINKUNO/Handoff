@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """`handoff say`, `listen` and `talk` — the speech facade from a terminal.
 
 Whatever engine the facade picks (Polly, Orpheus) is what speaks here; when

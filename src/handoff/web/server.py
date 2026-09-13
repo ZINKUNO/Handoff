@@ -1,5 +1,5 @@
-# Copyright 2026 The Handoff Authors
-# SPDX-License-Identifier: Apache-2.0
+# Copyright (c) 2026 ZINKUNO
+# SPDX-License-Identifier: MIT
 """Handoff's web surface: the log, the builder chat, and the decision screen.
 
 FastAPI + HTMX + Jinja2, deliberately: no build step, no node_modules, no
