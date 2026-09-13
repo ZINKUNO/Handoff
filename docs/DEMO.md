@@ -8,6 +8,10 @@ loud: you talk, it builds, it runs, it asks, you answer, it stops asking.
 Every command and credential needed to get to a recordable machine is in
 [RECORDING.md](RECORDING.md); this file is only what to say once you are there.
 
+Prefer a tight two-minute cut with a real-world story and a word-for-word
+voiceover instead? See [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md) — same product,
+Priya's Monday morning, and the "why this is different" beat spelled out.
+
 Rehearse with `make demo` (scripted model, instant, free). Record the real
 take on Bedrock Nova Pro — the whole take costs a few cents — and rehearse on
 Nova Lite (`BEDROCK_MODEL_ID=amazon.nova-lite-v1:0`) until the words land.
