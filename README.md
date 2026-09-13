@@ -30,7 +30,7 @@ every week.
 | **Live site and guides** | <https://handoff-eya.pages.dev> · [docs](https://handoff-eya.pages.dev/docs) |
 | **Pitch** | [deck (PDF)](docs/pitch/deck.pdf) · [deck (PPTX)](docs/pitch/deck.pptx) · [speaker script](docs/pitch/script.md) |
 | **Architecture** | [diagram](docs/architecture.png) · [editable Excalidraw](docs/architecture.excalidraw) · [ARCHITECTURE.md](docs/ARCHITECTURE.md) |
-| **Demo video** | `ADD BEFORE SUBMITTING` · storyboard in [docs/DEMO.md](docs/DEMO.md) |
+| **Demo video** | `ADD BEFORE SUBMITTING` · storyboard in [docs/DEMO.md](docs/DEMO.md) · setup-to-record runbook in [docs/RECORDING.md](docs/RECORDING.md) |
 
 ---
 

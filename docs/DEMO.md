@@ -5,6 +5,9 @@ useless, and an agent that asks about nothing is dangerous.* Handoff is the
 line between those, and the line moves as it learns. This cut tells it out
 loud: you talk, it builds, it runs, it asks, you answer, it stops asking.
 
+Every command and credential needed to get to a recordable machine is in
+[RECORDING.md](RECORDING.md); this file is only what to say once you are there.
+
 Rehearse with `make demo` (scripted model, instant, free). Record the real
 take on Bedrock Nova Pro — the whole take costs a few cents — and rehearse on
 Nova Lite (`BEDROCK_MODEL_ID=amazon.nova-lite-v1:0`) until the words land.
