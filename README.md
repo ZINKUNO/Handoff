@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/assets/header.png" alt="Handoff — Describe it. Hand it off. It runs." width="100%">
+  <img width="1957" height="804" alt="ChatGPT Image Sep 14, 2026, 01_12_30 AM" src="https://github.com/user-attachments/assets/f7a2932b-a8f3-488f-a786-d40af8db63fd" />
 </p>
 
 <p align="center">
