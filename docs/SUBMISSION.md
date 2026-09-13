@@ -112,7 +112,7 @@ asking about that — and a wake word for the orb.
 
 ## Links
 
-- **Repository:** https://github.com/LSUDOKO/Handoff (MIT)
+- **Repository:** https://github.com/ZINKUNO/Handoff (MIT)
 - **Site and docs:** https://handoff-eya.pages.dev
 - **Pitch deck:** `docs/pitch/deck.pdf` (also `.pptx`) · **Script:** `docs/pitch/script.md`
 - **Architecture:** `docs/architecture.png` (editable `docs/architecture.excalidraw`)

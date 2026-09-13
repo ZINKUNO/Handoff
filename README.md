@@ -342,7 +342,7 @@ page with the live orb, and the guides — built by `site/build.py` from
 account:
 
 ```bash
-git clone https://github.com/LSUDOKO/Handoff && cd Handoff
+git clone https://github.com/ZINKUNO/Handoff && cd Handoff
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,bedrock,desktop,web,voice]"
 make demo

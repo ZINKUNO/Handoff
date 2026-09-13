@@ -25,9 +25,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/LSUDOKO/Handoff"
-Repository = "https://github.com/LSUDOKO/Handoff"
-Issues = "https://github.com/LSUDOKO/Handoff/issues"
+Homepage = "https://github.com/ZINKUNO/Handoff"
+Repository = "https://github.com/ZINKUNO/Handoff"
+Issues = "https://github.com/ZINKUNO/Handoff/issues"
 
 [project.optional-dependencies]
 # Reasoning providers — pick one; the agent code is identical across them.

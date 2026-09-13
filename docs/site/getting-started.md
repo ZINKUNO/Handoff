@@ -14,7 +14,7 @@ Handoff turns a sentence into a scheduled workflow, runs it unattended, and stop
 Clone the repository and install it into a virtual environment. The extras pull in the pieces you are likely to want on a laptop: the Groq provider, the native desktop window, and a credential-free web-fetch MCP server.
 
 ```bash
-git clone https://github.com/LSUDOKO/Handoff && cd Handoff
+git clone https://github.com/ZINKUNO/Handoff && cd Handoff
 python3.12 -m venv .venv && source .venv/bin/activate
 pip install -e ".[dev,groq,desktop,web]"
 ```

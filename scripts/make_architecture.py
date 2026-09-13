@@ -176,7 +176,7 @@ arrow(lam, runtime, "invoke_agent_runtime", sa="right", sb="right", via=[(1548, 
 arrow(runtime, graph_box, "runs the same Graph", sa="left", sb="right", ob=-40, dashed=True, via=[(1120, 285), (1120, 395)])
 arrow(dynamo, graph_box, "state · runs · interrupts · sessions", sa="left", sb="right", ob=10, dashed=True, via=[(1112, 470), (1112, 445)])
 
-doc = {"type": "excalidraw", "version": 2, "source": "https://github.com/LSUDOKO/Handoff", "elements": elements,
+doc = {"type": "excalidraw", "version": 2, "source": "https://github.com/ZINKUNO/Handoff", "elements": elements,
        "appState": {"gridSize": None, "viewBackgroundColor": "#ffffff"}, "files": {}}
 OUT.write_text(json.dumps(doc, indent=1))
 print(f"wrote {OUT} ({len(elements)} elements)")

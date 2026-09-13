@@ -209,4 +209,4 @@ The hard question for a background agent is *when may it act alone?* Everything 
 
 # It does the boring part.<br>And it knows when to stop and ask.
 
-<p class="muted">github.com/LSUDOKO/Handoff · handoff-eya.pages.dev · MIT</p>
+<p class="muted">github.com/ZINKUNO/Handoff · handoff-eya.pages.dev · MIT</p>
