@@ -382,7 +382,7 @@ def check_gcal() -> dict[str, Any]:
             "Google Calendar",
             WARN,
             "not signed in",
-            "Run: handoff connect gcal  (reuses the Gmail OAuth client JSON)",
+            "Run: handoff credentials gcal  (reuses the Gmail OAuth client JSON)",
         )
     try:
         result = gcal.check()
@@ -394,7 +394,7 @@ def check_gcal() -> dict[str, Any]:
             "Google Calendar",
             FAIL,
             str(result.get("error"))[:200],
-            "Run: handoff connect gcal  to sign in again",
+            "Run: handoff credentials gcal  to sign in again",
         )
     return _result("Google Calendar", OK, f"{result.get('calendar')} ({result.get('timezone')})")
 

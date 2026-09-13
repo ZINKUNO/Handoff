@@ -24,8 +24,6 @@ def register(sub: argparse._SubParsersAction) -> None:
     p_listen.add_argument("--once", action="store_true", help="Poll a single time and exit")
     p_listen.add_argument("--timeout", type=int, default=25, help="Seconds to hold each poll open")
 
-    c.add_parser("pending", help="Decisions currently waiting on a human")
-
     p_send = c.add_parser("send", help="Re-send a waiting decision to Telegram")
     p_send.add_argument("interrupt_id", nargs="?", default="", help="Defaults to every pending one")
 
@@ -34,28 +32,6 @@ def handle(args: argparse.Namespace) -> int:
     from handoff.store import get_store
 
     action = args.answers_command or "listen"
-
-    if action == "pending":
-        pending = get_store().pending_interrupts()
-        rows = [
-            {
-                "interrupt_id": p.interrupt_id,
-                "item": p.item.subject or p.item.summary,
-                "sender": p.item.sender,
-                "suggested": p.agent_analysis.suggested_action,
-                "confidence": round(p.agent_analysis.confidence, 2),
-            }
-            for p in pending
-        ]
-        _ui.emit(
-            rows,
-            lambda: _ui.table(
-                "Waiting on you",
-                ["id", "item", "from", "suggested", "confidence"],
-                [[r["interrupt_id"], r["item"], r["sender"], r["suggested"], r["confidence"]] for r in rows],
-            ),
-        )
-        return 0
 
     if action == "send":
         from handoff.tools.notify import notify_decision_needed

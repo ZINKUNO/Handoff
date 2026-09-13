@@ -175,7 +175,7 @@ single transcript.
 
 ```bash
 handoff workflows show morning-ops-run     # the config
-handoff runs start morning-ops-run         # run it now
+handoff run morning-ops-run                # run it now
 handoff answers listen                     # take the taps from your phone
 ```
 

@@ -10,7 +10,7 @@ and book the work it just filed.
 **It reuses the Google project you already made for Gmail.** The OAuth client
 JSON at ``~/.gmail-mcp/gcp-oauth.keys.json`` is the same file; only the scope
 differs, so there is no second console project to create. The consent runs
-once (``handoff connect gcal``) and writes a refreshing token to
+once (``handoff credentials gcal``) and writes a refreshing token to
 ``~/.handoff/google-calendar.json``.
 
 Scope is ``calendar.events`` — read and write events, and nothing else. It
@@ -123,7 +123,7 @@ def list_events(hours_ahead: int = 24, max_results: int = 20) -> dict[str, Any]:
     """What is already on the calendar between now and ``hours_ahead``."""
     creds = _credentials()
     if creds is None:
-        return {"ok": False, "error": "Google Calendar is not connected — run: handoff connect gcal"}
+        return {"ok": False, "error": "Google Calendar is not connected — run: handoff credentials gcal"}
 
     now = datetime.now(UTC)
     with _client(creds) as http:
@@ -175,7 +175,7 @@ def create_event(
     """
     creds = _credentials()
     if creds is None:
-        return {"ok": False, "error": "Google Calendar is not connected — run: handoff connect gcal"}
+        return {"ok": False, "error": "Google Calendar is not connected — run: handoff credentials gcal"}
 
     if not end:
         try:
@@ -243,7 +243,7 @@ def check() -> dict[str, Any]:
             "error": f"no OAuth client at {client_secrets_path()} — same file the Gmail connection uses",
         }
     if not token_path().exists():
-        return {"ok": False, "error": "not signed in — run: handoff connect gcal"}
+        return {"ok": False, "error": "not signed in — run: handoff credentials gcal"}
 
     try:
         creds = _credentials()
