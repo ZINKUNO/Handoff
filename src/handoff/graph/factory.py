@@ -41,6 +41,7 @@ from handoff.mcp.servers import load_agent_tools
 from handoff.memory.store import recall_preferences
 from handoff.models import WorkflowConfig
 from handoff.platform.artifacts import create_artifact
+from handoff.tools.builtins import builtin_tools
 from handoff.tools.notify import notify_user
 
 TRIGGER_PROMPT = """You confirm whether a workflow should run.
@@ -107,6 +108,10 @@ def build_executor_agent(
 
     if workflow is not None:
         tools.extend(load_agent_tools(workflow.mcp_tools))
+        # Notion, Telegram, Airtable and Calendar are called directly rather
+        # than through an MCP subprocess; they arrive the same way from the
+        # agent's point of view.
+        tools.extend(builtin_tools(workflow.mcp_tools))
     if extra_tools:
         tools.extend(extra_tools)
 
