@@ -8,7 +8,7 @@
   <img alt="Tests" src="https://img.shields.io/badge/tests-255%20passing-2f855a?style=flat-square">
   <img alt="Strands" src="https://img.shields.io/badge/Strands%20Agents%20SDK-1.55-1e1e1e?style=flat-square">
   <img alt="AWS" src="https://img.shields.io/badge/AWS-Bedrock%20%C2%B7%20AgentCore%20%C2%B7%20Transcribe%20%C2%B7%20Polly-ff9900?style=flat-square&logoColor=white">
-  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-Apache--2.0-1e1e1e?style=flat-square"></a>
+  <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/license-MIT-1e1e1e?style=flat-square"></a>
 </p>
 
 # Handoff
@@ -21,10 +21,9 @@ handles what it can judge confidently, and stops to ask you only about the
 things it genuinely can't call. Your answer becomes a rule, so it asks less
 every week.
 
-> Built for the [Agents for Humans Hackathon](https://agentsforhumans.devpost.com/),
-> **Professional Agents track**. The brief asked for an agent that *runs
-> autonomously and only surfaces when there's a real decision to make.*
-> This repository is that sentence, with the receipts.
+> The whole product is one promise: an agent that *runs autonomously and only
+> surfaces when there's a real decision to make.* This repository is that
+> sentence, with the receipts.
 
 | | |
 |---|---|
@@ -38,7 +37,7 @@ every week.
 ## Contents
 
 1. [The sixty-second tour](#the-sixty-second-tour)
-2. [What the hackathon asked for, and where it is](#what-the-hackathon-asked-for-and-where-it-is)
+2. [What it promises, and where the proof is](#what-it-promises-and-where-the-proof-is)
 3. [Say it, watch it run](#say-it-watch-it-run)
 4. [The gate](#the-gate)
 5. [Architecture](#architecture)
@@ -72,9 +71,9 @@ through the AWS CLI. Nothing is mocked up.
 
 ---
 
-## What the hackathon asked for, and where it is
+## What it promises, and where the proof is
 
-| Requirement | How Handoff meets it | Proof |
+| Claim | How Handoff makes it true | Proof |
 |---|---|---|
 | Runs autonomously | A Strands `Graph` (trigger → executor → completer) runs on a cron schedule — in-process on the desktop, EventBridge → Lambda → **AgentCore Runtime** in the cloud | [run graph](docs/screens/ui/orb-graph.png) · [`aws scheduler` / `lambda`](docs/screens/aws/scheduler-lambda.png) |
 | Surfaces only for real decisions | A `BeforeToolCallEvent` hook gates the one tool that changes anything; below the confidence threshold it defers, then asks **once** for the whole batch | [decision screen](docs/screens/decision.png) · [`hitl.py`](src/handoff/graph/hooks/hitl.py) |
@@ -425,7 +424,7 @@ tests/      255 tests
 
 ## Licence
 
-Apache-2.0. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+MIT. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
 
 All of it is original work built on the Strands Agents SDK. No third-party
 source is vendored; every dependency is installed from its own distribution
